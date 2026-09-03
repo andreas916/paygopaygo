@@ -19,10 +19,12 @@ import {
   CheckCircle2,
   X,
   ArrowUp,
-  Zap
+  Zap,
+  Bike
 } from 'lucide-react';
 import HomePage from '../screens/HomePage';
 import ReportPage from '../screens/ReportPage';
+import GojekHomePage from '../screens/GojekHomePage';
 import CategoryDetailSheet from './CategoryDetailSheet';
 import BudgetReallocationSheet from './BudgetReallocationSheet';
 import RecommendationSheet from './RecommendationSheet';
@@ -52,7 +54,10 @@ export const MobileFrame: React.FC = () => {
         style={isFullscreen ? { width: '100vw', height: '100vh', borderRadius: 0, boxShadow: 'none' } : {}}
       >
         {/* Native Mobile Status Bar */}
-        <div className="mobile-status-bar">
+        <div 
+          className="mobile-status-bar"
+          style={state.activeScreen === 'gojek' ? { color: '#0f172a' } : {}}
+        >
           <span style={{ fontWeight: 700, letterSpacing: '-0.2px' }}>{currentTime}</span>
 
           {/* Dynamic Island / Speaker Pill */}
@@ -64,40 +69,24 @@ export const MobileFrame: React.FC = () => {
             <Signal size={13} strokeWidth={2.4} />
             <span style={{ fontSize: '11px', fontWeight: 700, marginRight: '2px' }}>4G</span>
             <Wifi size={13} strokeWidth={2.4} />
-            <Battery size={15} strokeWidth={2.4} fill="#ffffff" />
+            <Battery size={15} strokeWidth={2.4} fill={state.activeScreen === 'gojek' ? '#0f172a' : '#ffffff'} />
           </div>
         </div>
 
         {/* Floating Notification Toast */}
         {state.notificationToast && (
           <div 
-            key={`${state.notificationToast.title}-${state.notificationToast.message}`}
-            className="gopay-notification-toast"
+            key={state.notificationToast.title + state.notificationToast.message}
+            className="gopay-toast-notification"
             style={{
               borderColor: state.notificationToast.type === 'warning' 
-                ? 'rgba(255, 67, 67, 0.4)' 
+                ? '#ff4343' 
                 : state.notificationToast.type === 'success' 
-                ? 'rgba(0, 214, 24, 0.4)' 
-                : 'rgba(0, 174, 214, 0.4)',
-              background: '#161c24'
+                ? '#00d618' 
+                : '#00aed6'
             }}
           >
-            <div 
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: state.notificationToast.type === 'warning' 
-                  ? 'rgba(255, 67, 67, 0.15)' 
-                  : state.notificationToast.type === 'success' 
-                  ? 'rgba(0, 214, 24, 0.15)' 
-                  : 'rgba(0, 174, 214, 0.15)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}
-            >
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(0, 174, 214, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               {state.notificationToast.type === 'warning' ? (
                 <AlertTriangle size={20} color="#ff4343" />
               ) : state.notificationToast.type === 'success' ? (
@@ -106,27 +95,29 @@ export const MobileFrame: React.FC = () => {
                 <Sparkles size={20} color="#00aed6" />
               )}
             </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '2px' }}>
+
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
                 {state.notificationToast.title}
               </div>
-              <div style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.4 }}>
+              <div style={{ fontSize: '11px', color: '#cbd5e1', marginTop: '2px', lineHeight: 1.4 }}>
                 {state.notificationToast.message}
               </div>
               {state.notificationToast.submessage && (
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '3px', fontWeight: 500 }}>
-                  {state.notificationToast.submessage}
+                <div style={{ fontSize: '10px', color: '#38bdf8', marginTop: '4px', fontWeight: 600 }}>
+                  💡 {state.notificationToast.submessage}
                 </div>
               )}
             </div>
+
             <button 
               onClick={dismissToast}
               style={{
-                background: 'transparent',
+                background: 'none',
                 border: 'none',
-                color: '#64748b',
+                color: '#94a3b8',
                 cursor: 'pointer',
-                padding: '4px'
+                padding: '2px'
               }}
             >
               <X size={16} />
@@ -136,64 +127,72 @@ export const MobileFrame: React.FC = () => {
 
         {/* Scrollable Screen Content */}
         <div className="mobile-screen-viewport">
-          {state.activeScreen === 'home' ? <HomePage /> : <ReportPage />}
+          {state.activeScreen === 'home' ? (
+            <HomePage />
+          ) : state.activeScreen === 'report' ? (
+            <ReportPage />
+          ) : (
+            <GojekHomePage />
+          )}
         </div>
 
-        {/* Floating Bottom Navigation Bar (GoPay Style) */}
-        <div className="gopay-bottom-nav">
-          <button 
-            className={`bottom-nav-item ${state.activeScreen === 'home' ? 'active' : ''}`}
-            onClick={() => goToScreen('home')}
-          >
-            <Home size={22} strokeWidth={state.activeScreen === 'home' ? 2.5 : 1.8} />
-            <span>Beranda</span>
-          </button>
+        {/* Floating Bottom Navigation Bar (GoPay Style - Only on GoPay Screens) */}
+        {state.activeScreen !== 'gojek' && (
+          <div className="gopay-bottom-nav">
+            <button 
+              className={`bottom-nav-item ${state.activeScreen === 'home' ? 'active' : ''}`}
+              onClick={() => goToScreen('home')}
+            >
+              <Home size={22} strokeWidth={state.activeScreen === 'home' ? 2.5 : 1.8} />
+              <span>Beranda</span>
+            </button>
 
-          <button 
-            className={`bottom-nav-item ${state.activeScreen === 'report' ? 'active' : ''}`}
-            onClick={() => goToScreen('report')}
-          >
-            <PieChart size={22} strokeWidth={state.activeScreen === 'report' ? 2.5 : 1.8} />
-            <span>Keuangan</span>
-          </button>
+            <button 
+              className={`bottom-nav-item ${state.activeScreen === 'report' ? 'active' : ''}`}
+              onClick={() => goToScreen('report')}
+            >
+              <PieChart size={22} strokeWidth={state.activeScreen === 'report' ? 2.5 : 1.8} />
+              <span>Keuangan</span>
+            </button>
 
-          {/* QRIS elevated Center Button */}
-          <div 
-            className="bottom-nav-qris-btn"
-            title="Scan QRIS"
-            onClick={() => {
-              if (state.activeScreen === 'home') {
+            {/* QRIS elevated Center Button */}
+            <div 
+              className="bottom-nav-qris-btn"
+              title="Scan QRIS"
+              onClick={() => {
+                if (state.activeScreen === 'home') {
+                  goToScreen('report');
+                } else {
+                  openSheet('recommendations');
+                }
+              }}
+            >
+              <QrCode size={25} strokeWidth={2.3} />
+            </div>
+
+            <button 
+              className="bottom-nav-item"
+              onClick={() => {
                 goToScreen('report');
-              } else {
-                openSheet('recommendations');
-              }
-            }}
-          >
-            <QrCode size={25} strokeWidth={2.3} />
+                setTimeout(() => {
+                  const el = document.getElementById('history-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 150);
+              }}
+            >
+              <Clock size={22} strokeWidth={1.8} />
+              <span>Riwayat</span>
+            </button>
+
+            <button 
+              className="bottom-nav-item"
+              onClick={() => openSheet('pitch-guide')}
+            >
+              <User size={22} strokeWidth={1.8} />
+              <span>Profil</span>
+            </button>
           </div>
-
-          <button 
-            className="bottom-nav-item"
-            onClick={() => {
-              goToScreen('report');
-              setTimeout(() => {
-                const el = document.getElementById('history-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }, 150);
-            }}
-          >
-            <Clock size={22} strokeWidth={1.8} />
-            <span>Riwayat</span>
-          </button>
-
-          <button 
-            className="bottom-nav-item"
-            onClick={() => openSheet('pitch-guide')}
-          >
-            <User size={22} strokeWidth={1.8} />
-            <span>Profil</span>
-          </button>
-        </div>
+        )}
 
         {/* Native Home Indicator Bar */}
         <div className="mobile-home-indicator-bar">
@@ -241,6 +240,16 @@ export const MobileFrame: React.FC = () => {
         >
           <ArrowUp size={13} />
           <span>Pengeluaran (Asli)</span>
+        </button>
+
+        <button 
+          className={`demo-dock-btn ${state.activeScreen === 'gojek' ? 'active' : ''}`}
+          onClick={() => goToScreen(state.activeScreen === 'gojek' ? 'home' : 'gojek')}
+          title="Buka Replika Homepage Gojek"
+          style={{ background: 'rgba(0, 170, 19, 0.15)', borderColor: 'rgba(0, 170, 19, 0.35)', color: '#4ade80' }}
+        >
+          <Bike size={13} />
+          <span>{state.activeScreen === 'gojek' ? 'Ke GoPay' : 'App Gojek'}</span>
         </button>
 
         <button 
@@ -326,29 +335,37 @@ export const MobileFrame: React.FC = () => {
 
               <div style={{ padding: '10px 18px 24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {/* Navigation Group */}
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
                   <button 
                     onClick={() => { goToScreen('home'); setIsFabMenuOpen(false); }}
-                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: state.activeScreen === 'home' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'home' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'home' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'home' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
                   >
-                    <Home size={14} />
-                    <span>Beranda</span>
+                    <Home size={15} />
+                    <span>GoPay</span>
                   </button>
 
                   <button 
                     onClick={() => { setReportTab('expense'); goToScreen('report'); setIsFabMenuOpen(false); }}
-                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
                   >
-                    <ArrowUp size={14} />
-                    <span>Pengeluaran</span>
+                    <ArrowUp size={15} />
+                    <span>Keluar</span>
                   </button>
 
                   <button 
                     onClick={() => { setReportTab('income'); goToScreen('report'); setIsFabMenuOpen(false); }}
-                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
                   >
-                    <PieChart size={14} />
-                    <span>Pemasukan</span>
+                    <PieChart size={15} />
+                    <span>Masuk</span>
+                  </button>
+
+                  <button 
+                    onClick={() => { goToScreen('gojek'); setIsFabMenuOpen(false); }}
+                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'gojek' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'gojek' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
+                  >
+                    <Bike size={15} />
+                    <span>Gojek</span>
                   </button>
                 </div>
 

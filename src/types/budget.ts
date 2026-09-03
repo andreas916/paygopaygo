@@ -56,7 +56,7 @@ export interface DemoState {
   transactions: Transaction[];
   incomeTransactions: Transaction[];
   recommendations: Recommendation[];
-  activeScreen: 'home' | 'report';
+  activeScreen: 'home' | 'report' | 'gojek';
   activeReportTab: 'expense' | 'income';
   activeSheet: SheetType;
   selectedCategoryForDetail: CategoryId | null;
@@ -72,7 +72,7 @@ export interface DemoState {
 
 export interface BudgetContextType {
   state: DemoState;
-  goToScreen: (screen: 'home' | 'report') => void;
+  goToScreen: (screen: 'home' | 'report' | 'gojek') => void;
   setReportTab: (tab: 'expense' | 'income') => void;
   openSheet: (sheet: SheetType, categoryId?: CategoryId) => void;
   closeSheet: () => void;

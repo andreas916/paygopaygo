@@ -331,8 +331,12 @@ export const HomePage: React.FC = () => {
               <span style={{ fontSize: '10.5px', color: '#cbd5e1', fontWeight: 500, lineHeight: 1.2 }}>Top up<br />e-money</span>
             </div>
 
-            {/* 7. Gojek */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+            {/* 7. Gojek (Opens Gojek Home Page Prototype) */}
+            <div 
+              onClick={() => goToScreen('gojek')}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer', transition: 'transform 0.15s ease' }}
+              title="Buka Aplikasi Gojek"
+            >
               <div style={{ position: 'relative' }}>
                 <div style={{ width: '48px', height: '48px', borderRadius: '18px', background: '#192b1e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Bike size={22} color="#22c55e" />

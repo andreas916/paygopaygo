@@ -269,7 +269,7 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   }, [state.notificationToast]);
 
-  const goToScreen = (screen: 'home' | 'report') => {
+  const goToScreen = (screen: 'home' | 'report' | 'gojek') => {
     setState(prev => ({
       ...prev,
       activeScreen: screen,
