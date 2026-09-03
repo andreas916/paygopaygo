@@ -118,6 +118,7 @@ html, body {
   font-size: 13px;
   font-weight: 600;
   color: #ffffff;
+  background-color: #0e1216;
   z-index: 100;
   position: relative;
   flex-shrink: 0;
@@ -273,6 +274,58 @@ html, body {
 
 .bottom-nav-qris-btn:hover {
   transform: translateY(-10px) scale(1.04);
+}
+
+/* Gojek Native Bottom Navigation Bar */
+.gojek-bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #ffffff;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 90;
+}
+
+.gojek-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  flex: 1;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.gojek-nav-item.active {
+  color: #00aa13;
+  font-weight: 800;
+}
+
+.gojek-nav-indicator {
+  position: absolute;
+  top: -10px;
+  width: 28px;
+  height: 3px;
+  background: #00aa13;
+  border-radius: 999px;
+}
+
+.gojek-nav-badge {
+  position: absolute;
+  top: -2px;
+  right: 35%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
 }
 
 /* Floating Toast Notification */

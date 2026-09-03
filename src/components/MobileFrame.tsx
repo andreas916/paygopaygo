@@ -20,7 +20,10 @@ import {
   X,
   ArrowUp,
   Zap,
-  Bike
+  Bike,
+  Tag,
+  Receipt,
+  MessageSquare
 } from 'lucide-react';
 import HomePage from '../screens/HomePage';
 import ReportPage from '../screens/ReportPage';
@@ -54,10 +57,7 @@ export const MobileFrame: React.FC = () => {
         style={isFullscreen ? { width: '100vw', height: '100vh', borderRadius: 0, boxShadow: 'none' } : {}}
       >
         {/* Native Mobile Status Bar */}
-        <div 
-          className="mobile-status-bar"
-          style={state.activeScreen === 'gojek' ? { color: '#0f172a' } : {}}
-        >
+        <div className="mobile-status-bar">
           <span style={{ fontWeight: 700, letterSpacing: '-0.2px' }}>{currentTime}</span>
 
           {/* Dynamic Island / Speaker Pill */}
@@ -69,7 +69,7 @@ export const MobileFrame: React.FC = () => {
             <Signal size={13} strokeWidth={2.4} />
             <span style={{ fontSize: '11px', fontWeight: 700, marginRight: '2px' }}>4G</span>
             <Wifi size={13} strokeWidth={2.4} />
-            <Battery size={15} strokeWidth={2.4} fill={state.activeScreen === 'gojek' ? '#0f172a' : '#ffffff'} />
+            <Battery size={15} strokeWidth={2.4} fill="#ffffff" />
           </div>
         </div>
 
@@ -136,8 +136,8 @@ export const MobileFrame: React.FC = () => {
           )}
         </div>
 
-        {/* Floating Bottom Navigation Bar (GoPay Style - Only on GoPay Screens) */}
-        {state.activeScreen !== 'gojek' && (
+        {/* Floating Bottom Navigation Bar (GoPay vs Gojek Style) */}
+        {state.activeScreen !== 'gojek' ? (
           <div className="gopay-bottom-nav">
             <button 
               className={`bottom-nav-item ${state.activeScreen === 'home' ? 'active' : ''}`}
@@ -191,6 +191,35 @@ export const MobileFrame: React.FC = () => {
               <User size={22} strokeWidth={1.8} />
               <span>Profil</span>
             </button>
+          </div>
+        ) : (
+          <div className="gojek-bottom-nav">
+            {/* Beranda (Active) */}
+            <div className="gojek-nav-item active">
+              <div className="gojek-nav-indicator" />
+              <Home size={20} color="#00aa13" />
+              <span>Beranda</span>
+            </div>
+
+            {/* Promo */}
+            <div className="gojek-nav-item">
+              <Tag size={20} color="#64748b" />
+              <div className="gojek-nav-badge" />
+              <span>Promo</span>
+            </div>
+
+            {/* Pesanan */}
+            <div className="gojek-nav-item">
+              <Receipt size={20} color="#64748b" />
+              <span>Pesanan</span>
+            </div>
+
+            {/* Chat */}
+            <div className="gojek-nav-item">
+              <MessageSquare size={20} color="#64748b" />
+              <div className="gojek-nav-badge" />
+              <span>Chat</span>
+            </div>
           </div>
         )}
 

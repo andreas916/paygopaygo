@@ -17,10 +17,6 @@ import {
   Grid, 
   ArrowRight, 
   Info, 
-  Home, 
-  Tag, 
-  Receipt, 
-  MessageSquare,
   Plus
 } from 'lucide-react';
 
@@ -576,50 +572,6 @@ export const GojekHomePage: React.FC = () => {
               Klaim
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* Gojek Native Bottom Navigation Bar */}
-      <div 
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '60px',
-          background: '#ffffff',
-          borderTop: '1px solid #f1f5f9',
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          zIndex: 80
-        }}
-      >
-        {/* Beranda (Active) */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', position: 'relative', flex: 1, cursor: 'pointer' }}>
-          <div style={{ position: 'absolute', top: '-10px', width: '28px', height: '3px', background: '#00aa13', borderRadius: '999px' }} />
-          <Home size={20} color="#00aa13" />
-          <span style={{ fontSize: '10px', fontWeight: 800, color: '#00aa13' }}>Beranda</span>
-        </div>
-
-        {/* Promo */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', position: 'relative', flex: 1, cursor: 'pointer' }}>
-          <Tag size={20} color="#64748b" />
-          <div style={{ position: 'absolute', top: '-2px', right: '35%', width: '7px', height: '7px', borderRadius: '50%', background: '#ef4444' }} />
-          <span style={{ fontSize: '10px', fontWeight: 500, color: '#64748b' }}>Promo</span>
-        </div>
-
-        {/* Pesanan */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', flex: 1, cursor: 'pointer' }}>
-          <Receipt size={20} color="#64748b" />
-          <span style={{ fontSize: '10px', fontWeight: 500, color: '#64748b' }}>Pesanan</span>
-        </div>
-
-        {/* Chat */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', position: 'relative', flex: 1, cursor: 'pointer' }}>
-          <MessageSquare size={20} color="#64748b" />
-          <div style={{ position: 'absolute', top: '-2px', right: '35%', width: '7px', height: '7px', borderRadius: '50%', background: '#ef4444' }} />
-          <span style={{ fontSize: '10px', fontWeight: 500, color: '#64748b' }}>Chat</span>
         </div>
       </div>
     </div>
