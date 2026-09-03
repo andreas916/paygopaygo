@@ -18,7 +18,8 @@ import {
   Minimize2,
   CheckCircle2,
   X,
-  ArrowUp
+  ArrowUp,
+  Zap
 } from 'lucide-react';
 import HomePage from '../screens/HomePage';
 import ReportPage from '../screens/ReportPage';
@@ -41,6 +42,7 @@ export const MobileFrame: React.FC = () => {
 
   const [currentTime] = useState('15.10');
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFabMenuOpen, setIsFabMenuOpen] = useState(false);
 
   return (
     <div className="app-viewport-wrapper">
@@ -205,8 +207,8 @@ export const MobileFrame: React.FC = () => {
         {state.activeSheet === 'pitch-guide' && <PitchGuideSheet />}
       </div>
 
-      {/* Evaluator Presentation Dock (Always accessible for presentations) */}
-      <div className="evaluator-demo-dock">
+      {/* Evaluator Presentation Dock (Visible on Desktop only) */}
+      <div className="evaluator-demo-dock desktop-only-dock">
         <button 
           className={`demo-dock-btn ${state.activeScreen === 'home' ? 'active' : ''}`}
           onClick={() => goToScreen('home')}
@@ -289,6 +291,112 @@ export const MobileFrame: React.FC = () => {
         >
           {isFullscreen ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
         </button>
+      </div>
+
+      {/* Mobile-Only Floating Action Button (FAB) & Mini Sheet */}
+      <div className="mobile-only-fab-container">
+        <button 
+          onClick={() => setIsFabMenuOpen(true)}
+          className="mobile-fab-trigger"
+          title="Buka Menu Simulasi & Evaluator"
+        >
+          <Zap size={18} color="#00aed6" />
+        </button>
+
+        {/* Mobile FAB Bottom Sheet Modal */}
+        {isFabMenuOpen && (
+          <div className="mobile-fab-overlay" onClick={() => setIsFabMenuOpen(false)}>
+            <div className="mobile-fab-sheet" onClick={e => e.stopPropagation()}>
+              <div className="mobile-fab-sheet-handle" />
+              
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 18px 8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '26px', height: '26px', borderRadius: '8px', background: 'rgba(0, 174, 214, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Zap size={14} color="#00aed6" />
+                  </div>
+                  <span style={{ fontSize: '14px', fontWeight: 800, color: '#ffffff' }}>Panel Simulasi Evaluator</span>
+                </div>
+                <button 
+                  onClick={() => setIsFabMenuOpen(false)}
+                  style={{ background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#cbd5e1', cursor: 'pointer' }}
+                >
+                  <X size={15} />
+                </button>
+              </div>
+
+              <div style={{ padding: '10px 18px 24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {/* Navigation Group */}
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button 
+                    onClick={() => { goToScreen('home'); setIsFabMenuOpen(false); }}
+                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: state.activeScreen === 'home' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'home' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                  >
+                    <Home size={14} />
+                    <span>Beranda</span>
+                  </button>
+
+                  <button 
+                    onClick={() => { setReportTab('expense'); goToScreen('report'); setIsFabMenuOpen(false); }}
+                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                  >
+                    <ArrowUp size={14} />
+                    <span>Pengeluaran</span>
+                  </button>
+
+                  <button 
+                    onClick={() => { setReportTab('income'); goToScreen('report'); setIsFabMenuOpen(false); }}
+                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                  >
+                    <PieChart size={14} />
+                    <span>Pemasukan</span>
+                  </button>
+                </div>
+
+                {/* Simulation Action Buttons */}
+                <button 
+                  onClick={() => { simulateGoFoodTransaction(); setIsFabMenuOpen(false); }}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', background: 'rgba(0, 174, 214, 0.15)', border: '1px solid rgba(0, 174, 214, 0.4)', color: '#38bdf8', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Utensils size={16} />
+                    <span>Simulasi GoFood (28k)</span>
+                  </div>
+                  <span style={{ fontSize: '10px', color: '#94a3b8' }}>Tes Notif & Saldo</span>
+                </button>
+
+                <button 
+                  onClick={() => { triggerOverBudgetDemo(); goToScreen('report'); setIsFabMenuOpen(false); }}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', background: 'rgba(255, 67, 67, 0.15)', border: '1px solid rgba(255, 67, 67, 0.4)', color: '#ff7070', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <AlertTriangle size={16} />
+                    <span>Tes Over-Budget (30k)</span>
+                  </div>
+                  <span style={{ fontSize: '10px', color: '#fca5a5' }}>Tes Realokasi</span>
+                </button>
+
+                {/* Helper & Reset Buttons */}
+                <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+                  <button 
+                    onClick={() => { resetDemoState(); setIsFabMenuOpen(false); }}
+                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: '#1c222b', border: '1px solid rgba(255,255,255,0.08)', color: '#cbd5e1', fontWeight: 600, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                  >
+                    <RefreshCw size={13} />
+                    <span>Reset Data</span>
+                  </button>
+
+                  <button 
+                    onClick={() => { openSheet('pitch-guide'); setIsFabMenuOpen(false); }}
+                    style={{ flex: 1, padding: '10px', borderRadius: '12px', background: 'rgba(0, 170, 19, 0.15)', border: '1px solid rgba(0, 170, 19, 0.35)', color: '#4ade80', fontWeight: 600, fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                  >
+                    <Info size={13} />
+                    <span>Konsep & Pitch</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
