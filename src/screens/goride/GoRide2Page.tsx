@@ -83,7 +83,7 @@ export const GoRide2Page: React.FC = () => {
           <g transform="translate(140, 420)">
             <polygon points="0,0 100,-15 130,30 30,45" fill="#f8fafc" />
             <polygon points="30,45 130,30 130,60 30,75" fill="#cbd5e1" />
-            <text x="45" y="15" fontSize="8.5" fontWeight="700" fill="#334155">Dehakidz Dago</text>
+            <text x="45" y="15" fontSize="8.5" fontWeight="700" fill="#334155">Dehakidz</text>
           </g>
 
           {/* Green Route Dotted Trajectory */}
@@ -224,7 +224,7 @@ export const GoRide2Page: React.FC = () => {
           }}
         >
           <div style={{ maxWidth: '85%' }}>
-            {/* Pill: Pernah ke sini */}
+            {/* Pill: Sering di sini */}
             <div 
               style={{ 
                 display: 'inline-flex', 
@@ -234,17 +234,17 @@ export const GoRide2Page: React.FC = () => {
                 padding: '2px 8px', 
                 color: '#ffffff', 
                 fontSize: '9.5px', 
-                fontWeight: 800,
-                marginBottom: '6px'
+                fontWeight: 800, 
+                marginBottom: '6px' 
               }}
             >
-              Pernah ke sini
+              Sering di sini
             </div>
             <div style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', marginBottom: '2px' }}>
-              Kos Panros
+              Kos Daniel
             </div>
             <div style={{ fontSize: '11px', color: '#475569', lineHeight: 1.35 }}>
-              Jl. Ir. H. Juanda No.16 154a, Dago, Kecamatan Coblong, Kota Bandung, Ja...
+              Jl. Pemuda No. 28, Rawamangun, Pulo Gadung, Jakarta Timur
             </div>
           </div>
 

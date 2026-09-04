@@ -47,30 +47,28 @@ export const GoRide3Page: React.FC = () => {
           <path d="M220,0 L200,320" stroke="#cbd5e1" strokeWidth="4" fill="none" />
 
           {/* City Labels */}
-          <text x="80" y="70" fontSize="11" fontWeight="800" fill="#334155">Lembang</text>
+          <text x="80" y="70" fontSize="11" fontWeight="800" fill="#334155">Depok</text>
           <text x="10" y="115" fontSize="10" fontWeight="700" fill="#64748b">Cimahi</text>
-          <text x="70" y="135" fontSize="15" fontWeight="900" fill="#0f172a">Bandung</text>
-          <text x="225" y="145" fontSize="11" fontWeight="800" fill="#334155">Cileunyi</text>
-          <text x="250" y="195" fontSize="10" fontWeight="700" fill="#64748b">Rancaekek</text>
+          <text x="250" y="195" fontSize="10" fontWeight="700" fill="#64748b">Mie Gacoan</text>
 
           {/* Green Winding Highway Route */}
           <path 
             d="M110,105 L110,125 Q130,130 180,130 Q210,145 235,140 L275,138" 
             stroke="#00aa13" 
             strokeWidth="5" 
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
             fill="none" 
           />
 
-          {/* Origin Pin: Kos Panros */}
+          {/* Origin Pin: Kos Daniel */}
           <g transform="translate(100, 85)">
             <circle cx="10" cy="10" r="13" fill="#00aa13" stroke="#ffffff" strokeWidth="2.5" />
             <path d="M10,15 L10,6 M6,10 L10,6 L14,10" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
             <circle cx="10" cy="27" r="4.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
           </g>
 
-          {/* Destination Pin: Jatinangor */}
+          {/* Destination Pin: Universitas Indonesia */}
           <g transform="translate(265, 118)">
             <circle cx="10" cy="10" r="13" fill="#ea580c" stroke="#ffffff" strokeWidth="2.5" />
             <circle cx="10" cy="10" r="4.5" fill="#ffffff" />
@@ -83,15 +81,15 @@ export const GoRide3Page: React.FC = () => {
             position: 'absolute', 
             top: '12px', 
             left: '14px', 
-            right: '14px',
-            background: '#ffffff',
-            borderRadius: '16px',
-            padding: '10px 14px',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            zIndex: 10
+            right: '14px', 
+            background: '#ffffff', 
+            borderRadius: '16px', 
+            padding: '10px 14px', 
+            boxShadow: '0 4px 16px rgba(0,0,0,0.12)', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            zIndex: 10 
           }}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxWidth: '75%' }}>
@@ -99,13 +97,13 @@ export const GoRide3Page: React.FC = () => {
               <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#00aa13', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ color: '#fff', fontSize: '10px', fontWeight: 900 }}>↑</span>
               </div>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a' }}>Kos Panros</span>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a' }}>Kos Daniel</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#ea580c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ color: '#fff', fontSize: '9px', fontWeight: 900 }}>●</span>
               </div>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a' }}>Gerbang Masuk, Jatinan...</span>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a' }}>Universitas Indonesia</span>
             </div>
           </div>
 
@@ -114,65 +112,70 @@ export const GoRide3Page: React.FC = () => {
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#92400e' }}>Tambah</span>
           </div>
         </div>
-
-        {/* Floating Trip Type Pill */}
-        <div 
-          style={{ 
-            position: 'absolute', 
-            bottom: '12px', 
-            left: '50%', 
-            transform: 'translateX(-50%)',
-            background: '#ffffff',
-            borderRadius: '999px',
-            padding: '6px 14px',
-            boxShadow: '0 3px 10px rgba(0,0,0,0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            zIndex: 10,
-            cursor: 'pointer'
-          }}
-        >
-          <Sparkles size={14} color="#00aa13" />
-          <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0f172a' }}>Ganti tipe trip</span>
-        </div>
-
-        {/* Floating Back Button */}
-        <button 
-          onClick={() => goToScreen('goride_2')}
-          style={{ 
-            position: 'absolute', 
-            bottom: '12px', 
-            left: '14px', 
-            width: '38px', 
-            height: '38px', 
-            borderRadius: '50%', 
-            background: '#ffffff', 
-            border: 'none', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            boxShadow: '0 3px 10px rgba(0,0,0,0.15)',
-            cursor: 'pointer',
-            zIndex: 10
-          }}
-        >
-          <ArrowLeft size={18} color="#0f172a" />
-        </button>
       </div>
 
       {/* Bottom Services Sheet */}
       <div 
         style={{ 
-          marginTop: 'auto',
+          marginTop: 'auto', 
           background: '#ffffff', 
           borderTopLeftRadius: '24px', 
           borderTopRightRadius: '24px', 
-          padding: '10px 16px 16px',
-          boxShadow: '0 -6px 20px rgba(0,0,0,0.12)',
-          zIndex: 20
+          padding: '10px 16px 16px', 
+          boxShadow: '0 -6px 20px rgba(0,0,0,0.12)', 
+          position: 'relative',
+          zIndex: 20 
         }}
       >
+        {/* Floating Controls Row (Back Button & Trip Type Pill side by side) cleanly above sheet */}
+        <div 
+          style={{ 
+            position: 'absolute', 
+            bottom: 'calc(100% + 12px)', 
+            left: '14px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '10px', 
+            zIndex: 25 
+          }}
+        >
+          {/* Floating Back Button */}
+          <button 
+            onClick={() => goToScreen('goride_2')}
+            style={{ 
+              width: '40px', 
+              height: '40px', 
+              borderRadius: '50%', 
+              background: '#ffffff', 
+              border: 'none', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              boxShadow: '0 3px 12px rgba(0,0,0,0.18)', 
+              cursor: 'pointer' 
+            }}
+          >
+            <ArrowLeft size={19} color="#0f172a" />
+          </button>
+
+          {/* Floating Trip Type Pill */}
+          <div 
+            style={{ 
+              background: '#ffffff', 
+              borderRadius: '999px', 
+              padding: '7px 14px', 
+              boxShadow: '0 3px 12px rgba(0,0,0,0.14)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '6px', 
+              cursor: 'pointer' 
+            }}
+          >
+            <Sparkles size={14} color="#00aa13" />
+            <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0f172a' }}>Ganti tipe trip</span>
+          </div>
+        </div>
+        
         {/* Top Handle */}
         <div style={{ width: '36px', height: '4px', borderRadius: '999px', background: '#cbd5e1', margin: '0 auto 10px' }} />
 

@@ -76,7 +76,7 @@ export const GoRide1Page: React.FC = () => {
         {/* Greeting Text */}
         <div style={{ textAlign: 'center', marginTop: '6px' }}>
           <h1 style={{ fontSize: '21px', fontWeight: 900, margin: '0 0 4px', color: '#ffffff', letterSpacing: '-0.3px' }}>
-            Met malem, andreas
+            Mau kemana, daniel?
           </h1>
           <p style={{ fontSize: '12.5px', color: '#bbf7d0', margin: 0, fontWeight: 500 }}>
             Jangan lupa bahagiain diri, ya.
@@ -209,7 +209,7 @@ export const GoRide1Page: React.FC = () => {
         <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', overflowX: 'auto', paddingBottom: '4px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '999px', fontSize: '11.5px', fontWeight: 700, color: '#334155', whiteSpace: 'nowrap' }}>
             <Bookmark size={13} fill="#475569" color="#475569" />
-            <span>Kos Panros</span>
+            <span>Kos Daniel</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '999px', fontSize: '11.5px', fontWeight: 700, color: '#334155', whiteSpace: 'nowrap' }}>
             <Bookmark size={13} fill="#475569" color="#475569" />
@@ -223,56 +223,73 @@ export const GoRide1Page: React.FC = () => {
 
         {/* Recent Destinations List */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* Target 1: Institut Teknologi Bandung (CLICKABLE) */}
+          {/* Target 1: Universitas Indonesia (CLICKABLE) */}
           <div 
             onClick={() => goToScreen('goride_2')}
             style={{ 
               display: 'flex', 
-              alignItems: 'flex-start', 
+              alignItems: 'center', 
               gap: '14px', 
-              padding: '12px 0', 
+              padding: '14px 0', 
               borderBottom: '1px solid #f1f5f9',
               cursor: 'pointer'
             }}
           >
-            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+            <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Clock size={16} color="#64748b" />
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0f172a' }}>
-                Institut Teknologi Bandung
-              </div>
-              <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px', lineHeight: 1.3 }}>
-                Di Seberang Gerbang Utama (Titik Jemput Cepat)
+              <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
+                Universitas Indonesia
               </div>
             </div>
-            <Bookmark size={16} color="#94a3b8" style={{ marginTop: '4px' }} />
+            <Bookmark size={16} color="#94a3b8" />
           </div>
 
-          {/* Target 2: Mie Gacoan Dago */}
+          {/* Target 2: Mie Gacoan */}
           <div 
             onClick={() => goToScreen('goride_2')}
             style={{ 
               display: 'flex', 
-              alignItems: 'flex-start', 
+              alignItems: 'center', 
               gap: '14px', 
-              padding: '12px 0', 
+              padding: '14px 0', 
               borderBottom: '1px solid #f1f5f9',
               cursor: 'pointer'
             }}
           >
-            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+            <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Clock size={16} color="#64748b" />
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0f172a' }}>
-                Mie Gacoan Dago
-              </div>
-              <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-                Area Parkir
+              <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
+                Mie Gacoan
               </div>
             </div>
-            <Bookmark size={16} color="#94a3b8" style={{ marginTop: '4px' }} />
+            <Bookmark size={16} color="#94a3b8" />
+          </div>
+
+          {/* Target 3: Uchi Parfume */}
+          <div 
+            onClick={() => goToScreen('goride_2')}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '14px', 
+              padding: '14px 0', 
+              borderBottom: '1px solid #f1f5f9',
+              cursor: 'pointer'
+            }}
+          >
+            <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Clock size={16} color="#64748b" />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
+                Uchi Parfume
+              </div>
+            </div>
+            <Bookmark size={16} color="#94a3b8" />
           </div>
         </div>
       </div>

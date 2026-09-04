@@ -54,8 +54,8 @@ export const GoFood3Page: React.FC = () => {
         >
           <ArrowLeft size={22} color="#0f172a" />
         </button>
-        <span style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-          Ayam Bakar Madu Ontohod Meresap S...
+        <span style={{ fontSize: '15.5px', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          Ayam Bakar Madu Lisa
         </span>
       </div>
 

@@ -311,12 +311,53 @@ export const GoFood1Page: React.FC = () => {
         </div>
       </div>
 
+      {/* Pilihan Resto Terpopuler (To fill the gap naturally) */}
+      <div style={{ padding: '16px 16px 0' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+          <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+            Pilihan resto terpopuler
+          </h3>
+          <span style={{ fontSize: '11px', color: '#00aa13', fontWeight: 700, cursor: 'pointer' }}>
+            Lihat Semua
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '4px' }}>
+          {/* Resto 1 */}
+          <div style={{ minWidth: '130px', background: '#ffffff', borderRadius: '14px', border: '1px solid #f1f5f9', padding: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
+            <div style={{ height: '65px', borderRadius: '10px', background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px', marginBottom: '6px' }}>
+              🍗
+            </div>
+            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>Ayam Geprek Mas Eko</div>
+            <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>★ 4.8 • 15-25 min</div>
+          </div>
+
+          {/* Resto 2 */}
+          <div style={{ minWidth: '130px', background: '#ffffff', borderRadius: '14px', border: '1px solid #f1f5f9', padding: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
+            <div style={{ height: '65px', borderRadius: '10px', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px', marginBottom: '6px' }}>
+              🍜
+            </div>
+            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>Bakso Rusuk Solo</div>
+            <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>★ 4.7 • 20-30 min</div>
+          </div>
+
+          {/* Resto 3 */}
+          <div style={{ minWidth: '130px', background: '#ffffff', borderRadius: '14px', border: '1px solid #f1f5f9', padding: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
+            <div style={{ height: '65px', borderRadius: '10px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px', marginBottom: '6px' }}>
+              ☕
+            </div>
+            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>Kopi Kenangan</div>
+            <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>★ 4.9 • 10-20 min</div>
+          </div>
+        </div>
+      </div>
+
       {/* Floating Green Bottom Cart Bar */}
       <div 
         style={{ 
           position: 'sticky', 
-          bottom: '14px', 
-          margin: '0 16px',
+          bottom: '16px', 
+          margin: '24px 16px 10px',
           zIndex: 80,
           display: 'flex',
           gap: '8px',
@@ -329,7 +370,7 @@ export const GoFood1Page: React.FC = () => {
             flex: 1, 
             background: '#00aa13', 
             borderRadius: '999px', 
-            padding: '12px 18px', 
+            padding: '14px 20px', 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between',
@@ -337,20 +378,19 @@ export const GoFood1Page: React.FC = () => {
             cursor: 'pointer'
           }}
         >
-          <div>
-            <div style={{ fontSize: '12.5px', fontWeight: 900, color: '#ffffff' }}>2 item</div>
-            <div style={{ fontSize: '10px', color: '#dcfce7', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '170px' }}>
-              Diantar dari Ayam Crisbar (Cri...
-            </div>
-          </div>
-          <span style={{ fontSize: '14px', fontWeight: 900, color: '#ffffff' }}>59.600</span>
+          <span style={{ fontSize: '14px', fontWeight: 900, color: '#ffffff' }}>
+            1 item
+          </span>
+          <span style={{ fontSize: '15px', fontWeight: 900, color: '#ffffff' }}>
+            22.000
+          </span>
         </div>
 
         <div 
           onClick={() => goToScreen('gofood_2')}
           style={{ 
-            width: '46px', 
-            height: '46px', 
+            width: '48px', 
+            height: '48px', 
             borderRadius: '50%', 
             background: '#ffffff', 
             border: '2px solid #00aa13', 
@@ -361,7 +401,7 @@ export const GoFood1Page: React.FC = () => {
             cursor: 'pointer'
           }}
         >
-          <ShoppingBag size={20} color="#00aa13" />
+          <ShoppingBag size={22} color="#00aa13" />
         </div>
       </div>
     </div>

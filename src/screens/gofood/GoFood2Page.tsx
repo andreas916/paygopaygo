@@ -108,8 +108,8 @@ export const GoFood2Page: React.FC = () => {
         >
           {/* Restaurant Title & Arrow */}
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
-            <h1 style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a', lineHeight: 1.3, margin: 0 }}>
-              Ayam Bakar Madu Ontohod Meresap Sampai Ke Tulang, Tubagus Ismail
+            <h1 style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a', lineHeight: 1.3, margin: 0 }}>
+              Ayam Bakar Madu Lisa
             </h1>
             <ChevronRight size={20} color="#64748b" style={{ flexShrink: 0, marginTop: '2px' }} />
           </div>
@@ -260,8 +260,8 @@ export const GoFood2Page: React.FC = () => {
       <div 
         style={{ 
           position: 'sticky', 
-          bottom: '14px', 
-          margin: '0 16px',
+          bottom: '16px', 
+          margin: '24px 16px 12px',
           zIndex: 80,
           display: 'flex',
           gap: '8px',
@@ -274,7 +274,7 @@ export const GoFood2Page: React.FC = () => {
             flex: 1, 
             background: '#00aa13', 
             borderRadius: '999px', 
-            padding: '12px 18px', 
+            padding: '13px 18px', 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between',
@@ -284,8 +284,8 @@ export const GoFood2Page: React.FC = () => {
         >
           <div>
             <div style={{ fontSize: '12.5px', fontWeight: 900, color: '#ffffff' }}>1 item</div>
-            <div style={{ fontSize: '10px', color: '#dcfce7', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '170px' }}>
-              Ayam Bakar Madu Ontohod M...
+            <div style={{ fontSize: '10.5px', color: '#dcfce7', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '170px' }}>
+              Ayam Bakar Madu Lisa
             </div>
           </div>
           <span style={{ fontSize: '15px', fontWeight: 900, color: '#ffffff' }}>22.000</span>
