@@ -570,7 +570,6 @@ export const ReportPage: React.FC = () => {
                   <Sparkles size={14} color="#00aed6" />
                   <span>Simulasi Transaksi & Skenario:</span>
                 </div>
-                <span style={{ fontSize: '9.5px', color: '#64748b' }}>Klik Cepat</span>
               </div>
 
               <div style={{ display: 'flex', gap: '8px' }}>
@@ -675,18 +674,18 @@ export const ReportPage: React.FC = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Sliders size={15} color="#00d618" />
                   <span style={{ fontSize: '15px', fontWeight: 800, color: '#ffffff' }}>
-                    Alokasi Pemasukan ke Budget
+                    Alokasi Pemasukan
                   </span>
                 </div>
                 <span 
                   onClick={() => openSheet('pitch-guide')}
                   style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 600, cursor: 'pointer' }}
                 >
-                  Info Konsep
+                  Info
                 </span>
               </div>
               <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '12px', lineHeight: 1.4 }}>
-                Atur bebas persentase alokasi untuk setiap kebutuhan. GoPay otomatis menghitung nominal Rupiahnya dari total pemasukanmu.
+                Atur persentase alokasi setiap kebutuhan. Kami otomatis menghitung nominalnya dari pemasukanmu.
               </div>
 
               <div style={{ background: '#181d24', borderRadius: '22px', border: '1px solid rgba(255, 255, 255, 0.07)', overflow: 'hidden' }}>
@@ -795,7 +794,7 @@ export const ReportPage: React.FC = () => {
                             marginLeft: 'auto',
                             background: 'none',
                             border: 'none',
-                            color: '#00d618',
+                            color: '#cbd3ddff',
                             fontSize: '11px',
                             fontWeight: 700,
                             display: 'flex',
@@ -847,9 +846,6 @@ export const ReportPage: React.FC = () => {
               {/* Subtitle & Formula Row */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px', color: '#94a3b8', marginBottom: '14px' }}>
                 <span>Sisa alokasi September 2026</span>
-                <span style={{ color: '#00d618', fontWeight: 600, fontSize: '10.5px' }}>
-                  Weekday 1.0x • Weekend 1.25x
-                </span>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
@@ -906,11 +902,6 @@ export const ReportPage: React.FC = () => {
                 </span>
               </div>
 
-              <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '12px' }}>
-                {foodCat && foodCat.todayRemaining > 0
-                  ? `"Masih ada Rp${foodCat.todayRemaining.toLocaleString('id-ID')} untuk makanan hari ini."`
-                  : `"Budget makanan hari ini sudah terpakai penuh (Rp0). Rekomendasi voucher hemat:"`}
-              </div>
 
               <div 
                 onClick={() => openSheet('recommendations')}
@@ -961,7 +952,7 @@ export const ReportPage: React.FC = () => {
                 <span style={{ fontSize: '15px', fontWeight: 800, color: '#ffffff' }}>
                   Riwayat pemasukan
                 </span>
-                <span style={{ fontSize: '11px', color: '#00d618', fontWeight: 700 }}>
+                <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 700 }}>
                   +{state.incomeTransactions.length} transaksi masuk
                 </span>
               </div>

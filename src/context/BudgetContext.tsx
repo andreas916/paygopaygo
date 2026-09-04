@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { CategoryBudget, CategoryId, Transaction, Recommendation, DemoState, BudgetContextType } from '../types/budget';
+import { CategoryBudget, CategoryId, Transaction, Recommendation, DemoState, BudgetContextType, AppScreen } from '../types/budget';
 
 const INITIAL_CATEGORIES: CategoryBudget[] = [
   {
@@ -269,7 +269,7 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   }, [state.notificationToast]);
 
-  const goToScreen = (screen: 'home' | 'report' | 'gojek') => {
+  const goToScreen = (screen: AppScreen) => {
     setState(prev => ({
       ...prev,
       activeScreen: screen,

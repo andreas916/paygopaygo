@@ -169,9 +169,10 @@ export const GojekHomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Illustration on Right Side */}
+            {/* Illustration on Right Side (Clickable to GoFood / GoRide) */}
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px' }}>
               <div 
+                onClick={() => goToScreen('gofood_1')}
                 style={{ 
                   width: '42px', 
                   height: '42px', 
@@ -181,7 +182,8 @@ export const GojekHomePage: React.FC = () => {
                   flexDirection: 'column', 
                   alignItems: 'center', 
                   justifyContent: 'center',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                  cursor: 'pointer'
                 }}
               >
                 <Utensils size={18} color="#ff4d4f" />
@@ -189,6 +191,7 @@ export const GojekHomePage: React.FC = () => {
               </div>
 
               <div 
+                onClick={() => goToScreen('goride_1')}
                 style={{ 
                   width: '50px', 
                   height: '50px', 
@@ -198,7 +201,8 @@ export const GojekHomePage: React.FC = () => {
                   flexDirection: 'column', 
                   alignItems: 'center', 
                   justifyContent: 'center',
-                  boxShadow: '0 3px 10px rgba(0, 170, 19, 0.3)'
+                  boxShadow: '0 3px 10px rgba(0, 170, 19, 0.3)',
+                  cursor: 'pointer'
                 }}
               >
                 <Bike size={24} color="#ffffff" />
@@ -310,7 +314,11 @@ export const GojekHomePage: React.FC = () => {
         <div style={{ padding: '0 14px', marginBottom: '16px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px 4px', textAlign: 'center' }}>
             {/* 1. GoRide */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+            <div 
+              onClick={() => goToScreen('goride_1')}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+              title="Buka Layanan GoRide"
+            >
               <div style={{ position: 'relative' }}>
                 <div style={{ width: '50px', height: '50px', borderRadius: '18px', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Bike size={26} color="#00aa13" />
@@ -336,7 +344,11 @@ export const GojekHomePage: React.FC = () => {
             </div>
 
             {/* 3. GoFood */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+            <div 
+              onClick={() => goToScreen('gofood_1')}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+              title="Buka Layanan GoFood"
+            >
               <div style={{ position: 'relative' }}>
                 <div style={{ width: '50px', height: '50px', borderRadius: '18px', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Utensils size={26} color="#ff4d4f" />

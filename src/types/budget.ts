@@ -46,6 +46,17 @@ export interface Recommendation {
 
 export type SheetType = 'none' | 'category-detail' | 'reallocate' | 'recommendations' | 'pitch-guide';
 
+export type AppScreen = 
+  | 'home' 
+  | 'report' 
+  | 'gojek' 
+  | 'goride_1' 
+  | 'goride_2' 
+  | 'goride_3' 
+  | 'gofood_1' 
+  | 'gofood_2' 
+  | 'gofood_3';
+
 export interface DemoState {
   currentMonth: string; // "September 2026"
   mainBalance: number; // Saldo GoPay (e.g. 3482000)
@@ -56,7 +67,7 @@ export interface DemoState {
   transactions: Transaction[];
   incomeTransactions: Transaction[];
   recommendations: Recommendation[];
-  activeScreen: 'home' | 'report' | 'gojek';
+  activeScreen: AppScreen;
   activeReportTab: 'expense' | 'income';
   activeSheet: SheetType;
   selectedCategoryForDetail: CategoryId | null;
@@ -72,7 +83,7 @@ export interface DemoState {
 
 export interface BudgetContextType {
   state: DemoState;
-  goToScreen: (screen: 'home' | 'report' | 'gojek') => void;
+  goToScreen: (screen: AppScreen) => void;
   setReportTab: (tab: 'expense' | 'income') => void;
   openSheet: (sheet: SheetType, categoryId?: CategoryId) => void;
   closeSheet: () => void;

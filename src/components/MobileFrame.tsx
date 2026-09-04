@@ -28,6 +28,12 @@ import {
 import HomePage from '../screens/HomePage';
 import ReportPage from '../screens/ReportPage';
 import GojekHomePage from '../screens/GojekHomePage';
+import GoRide1Page from '../screens/goride/GoRide1Page';
+import GoRide2Page from '../screens/goride/GoRide2Page';
+import GoRide3Page from '../screens/goride/GoRide3Page';
+import GoFood1Page from '../screens/gofood/GoFood1Page';
+import GoFood2Page from '../screens/gofood/GoFood2Page';
+import GoFood3Page from '../screens/gofood/GoFood3Page';
 import CategoryDetailSheet from './CategoryDetailSheet';
 import BudgetReallocationSheet from './BudgetReallocationSheet';
 import RecommendationSheet from './RecommendationSheet';
@@ -126,18 +132,33 @@ export const MobileFrame: React.FC = () => {
         )}
 
         {/* Scrollable Screen Content */}
+        {/* Scrollable Screen Content */}
         <div className="mobile-screen-viewport">
           {state.activeScreen === 'home' ? (
             <HomePage />
           ) : state.activeScreen === 'report' ? (
             <ReportPage />
-          ) : (
+          ) : state.activeScreen === 'gojek' ? (
             <GojekHomePage />
+          ) : state.activeScreen === 'goride_1' ? (
+            <GoRide1Page />
+          ) : state.activeScreen === 'goride_2' ? (
+            <GoRide2Page />
+          ) : state.activeScreen === 'goride_3' ? (
+            <GoRide3Page />
+          ) : state.activeScreen === 'gofood_1' ? (
+            <GoFood1Page />
+          ) : state.activeScreen === 'gofood_2' ? (
+            <GoFood2Page />
+          ) : state.activeScreen === 'gofood_3' ? (
+            <GoFood3Page />
+          ) : (
+            <HomePage />
           )}
         </div>
 
-        {/* Floating Bottom Navigation Bar (GoPay vs Gojek Style) */}
-        {state.activeScreen !== 'gojek' ? (
+        {/* Floating Bottom Navigation Bar: Only on GoPay Home & Report */}
+        {(state.activeScreen === 'home' || state.activeScreen === 'report') && (
           <div className="gopay-bottom-nav">
             <button 
               className={`bottom-nav-item ${state.activeScreen === 'home' ? 'active' : ''}`}
@@ -192,7 +213,10 @@ export const MobileFrame: React.FC = () => {
               <span>Profil</span>
             </button>
           </div>
-        ) : (
+        )}
+
+        {/* Gojek Native Bottom Navigation Bar: Only on Gojek Home */}
+        {state.activeScreen === 'gojek' && (
           <div className="gojek-bottom-nav">
             {/* Beranda (Active) */}
             <div className="gojek-nav-item active">
@@ -279,6 +303,26 @@ export const MobileFrame: React.FC = () => {
         >
           <Bike size={13} />
           <span>{state.activeScreen === 'gojek' ? 'Ke GoPay' : 'App Gojek'}</span>
+        </button>
+
+        <button 
+          className={`demo-dock-btn ${state.activeScreen.startsWith('goride') ? 'active' : ''}`}
+          onClick={() => goToScreen('goride_1')}
+          title="Tes Alur Pemesanan GoRide (3 Halaman)"
+          style={{ background: 'rgba(34, 197, 94, 0.15)', borderColor: 'rgba(34, 197, 94, 0.4)', color: '#86efac' }}
+        >
+          <Bike size={13} />
+          <span>Flow GoRide</span>
+        </button>
+
+        <button 
+          className={`demo-dock-btn ${state.activeScreen.startsWith('gofood') ? 'active' : ''}`}
+          onClick={() => goToScreen('gofood_1')}
+          title="Tes Alur Pemesanan GoFood (3 Halaman)"
+          style={{ background: 'rgba(239, 68, 68, 0.15)', borderColor: 'rgba(239, 68, 68, 0.4)', color: '#fca5a5' }}
+        >
+          <Utensils size={13} />
+          <span>Flow GoFood</span>
         </button>
 
         <button 
@@ -395,6 +439,25 @@ export const MobileFrame: React.FC = () => {
                   >
                     <Bike size={15} />
                     <span>Gojek</span>
+                  </button>
+                </div>
+
+                {/* Direct Flows Shortcut */}
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button 
+                    onClick={() => { goToScreen('goride_1'); setIsFabMenuOpen(false); }}
+                    style={{ flex: 1, padding: '9px 8px', borderRadius: '12px', background: 'rgba(34, 197, 94, 0.15)', border: '1px solid rgba(34, 197, 94, 0.35)', color: '#86efac', fontWeight: 700, fontSize: '11px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}
+                  >
+                    <Bike size={13} />
+                    <span>Flow GoRide</span>
+                  </button>
+
+                  <button 
+                    onClick={() => { goToScreen('gofood_1'); setIsFabMenuOpen(false); }}
+                    style={{ flex: 1, padding: '9px 8px', borderRadius: '12px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.35)', color: '#fca5a5', fontWeight: 700, fontSize: '11px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}
+                  >
+                    <Utensils size={13} />
+                    <span>Flow GoFood</span>
                   </button>
                 </div>
 
