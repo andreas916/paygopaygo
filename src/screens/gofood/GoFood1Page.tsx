@@ -23,10 +23,11 @@ export const GoFood1Page: React.FC = () => {
       style={{ 
         background: '#ffffff', 
         minHeight: '100%', 
-        paddingBottom: '85px',
-        position: 'relative',
-        color: '#0f172a',
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative', 
+        color: '#0f172a', 
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' 
       }}
     >
       {/* Top Red Hero Header */}
@@ -76,7 +77,7 @@ export const GoFood1Page: React.FC = () => {
             }}
           >
             <MapPin size={13} color="#ffffff" fill="#ffffff" />
-            <span>Kos Panros</span>
+            <span>Kos Daniel</span>
             <ChevronDown size={14} color="#ffffff" />
           </div>
 
@@ -200,7 +201,16 @@ export const GoFood1Page: React.FC = () => {
         </div>
 
         {/* Horizontal Dishes Scroll */}
-        <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '4px' }}>
+        <div 
+          className="hide-scrollbar"
+          style={{ 
+            display: 'flex', 
+            gap: '10px', 
+            overflowX: 'auto', 
+            paddingBottom: '4px',
+            scrollbarWidth: 'none'
+          }}
+        >
           {/* Item 1: Ayam Bakar Madu Dada/Paha (CLICK TO PROCEED TO GOFOOD_2) */}
           <div 
             onClick={() => goToScreen('gofood_2')}
@@ -322,7 +332,16 @@ export const GoFood1Page: React.FC = () => {
           </span>
         </div>
 
-        <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '4px' }}>
+        <div 
+          className="hide-scrollbar"
+          style={{ 
+            display: 'flex', 
+            gap: '10px', 
+            overflowX: 'auto', 
+            paddingBottom: '4px',
+            scrollbarWidth: 'none'
+          }}
+        >
           {/* Resto 1 */}
           <div style={{ minWidth: '130px', background: '#ffffff', borderRadius: '14px', border: '1px solid #f1f5f9', padding: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
             <div style={{ height: '65px', borderRadius: '10px', background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px', marginBottom: '6px' }}>
@@ -352,12 +371,15 @@ export const GoFood1Page: React.FC = () => {
         </div>
       </div>
 
+      {/* Spacer to push floating bar down */}
+      <div style={{ flex: 1, minHeight: '16px' }} />
+
       {/* Floating Green Bottom Cart Bar */}
       <div 
         style={{ 
           position: 'sticky', 
           bottom: '16px', 
-          margin: '24px 16px 10px',
+          margin: 'auto 16px 16px',
           zIndex: 80,
           display: 'flex',
           gap: '8px',

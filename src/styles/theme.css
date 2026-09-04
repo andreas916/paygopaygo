@@ -172,6 +172,16 @@ html, body {
   display: none;
 }
 
+/* Utility to completely hide scrollbars across all browsers */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Bottom Safe Area / Home Indicator */
 .mobile-home-indicator-bar {
   height: 20px;
