@@ -88,6 +88,8 @@ export interface BudgetContextType {
   openSheet: (sheet: SheetType, categoryId?: CategoryId) => void;
   closeSheet: () => void;
   simulateGoFoodTransaction: () => void;
+  simulateOrderGoFood: (amount?: number) => void;
+  simulateOrderGoRide: (fare?: number) => void;
   triggerOverBudgetDemo: () => void;
   reallocateBudget: (fromCategory: CategoryId, toCategory: CategoryId, amount: number) => boolean;
   updateCategoryPercentage: (categoryId: CategoryId, newPercentage: number) => void;

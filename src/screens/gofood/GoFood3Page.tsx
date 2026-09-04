@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useBudget } from '../../context/BudgetContext';
 import { 
   ArrowLeft, 
@@ -7,13 +7,28 @@ import {
   ArrowRight, 
   Gift, 
   Utensils, 
-  X, 
   MoreHorizontal,
-  Wallet
+  Wallet,
+  AlertTriangle
 } from 'lucide-react';
 
 export const GoFood3Page: React.FC = () => {
-  const { goToScreen } = useBudget();
+  const { state, goToScreen, openSheet, setSelectedCategory, simulateOrderGoFood } = useBudget();
+  const [showOverBudgetPrompt, setShowOverBudgetPrompt] = useState(false);
+
+  const totalBill = 25001;
+  const foodCat = state.categories.find(c => c.id === 'food');
+  const dailyBalance = foodCat ? foodCat.todayRemaining : 18000;
+  const isInsufficient = dailyBalance < totalBill;
+  const deficit = Math.max(0, totalBill - dailyBalance);
+
+  const handleOrderClick = () => {
+    if (isInsufficient) {
+      setShowOverBudgetPrompt(true);
+    } else {
+      simulateOrderGoFood(totalBill);
+    }
+  };
 
   return (
     <div 
@@ -220,7 +235,7 @@ export const GoFood3Page: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating Bottom Payment Dock (CRITICAL HIGHLIGHT: Saldo Kurang) */}
+      {/* Floating Bottom Payment Dock (CRITICAL HIGHLIGHT: Saldo Kategori Harian) */}
       <div 
         style={{ 
           position: 'sticky', 
@@ -236,10 +251,11 @@ export const GoFood3Page: React.FC = () => {
           marginTop: 'auto'
         }}
       >
-        {/* Black Status Strip (HIGHLIGHT SALDO) */}
+        {/* Status Strip (HIGHLIGHT SALDO MAKAN HARIAN) */}
         <div 
           style={{ 
-            background: '#1e242d', 
+            background: isInsufficient ? '#2a1215' : '#064e3b', 
+            borderBottom: isInsufficient ? '1px solid rgba(239, 68, 68, 0.3)' : 'none',
             padding: '8px 16px', 
             display: 'flex', 
             alignItems: 'center', 
@@ -247,10 +263,21 @@ export const GoFood3Page: React.FC = () => {
             color: '#ffffff'
           }}
         >
-          <span style={{ fontSize: '12.5px', fontWeight: 800, letterSpacing: '0.2px' }}>
-            Sisa saldo: Rp13.971
-          </span>
-          <X size={15} color="#cbd5e1" style={{ cursor: 'pointer' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {isInsufficient && <AlertTriangle size={13} color="#f87171" />}
+            <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.2px', color: isInsufficient ? '#fca5a5' : '#a7f3d0' }}>
+              Sisa budget makan hari ini: Rp{dailyBalance.toLocaleString('id-ID')}
+            </span>
+          </div>
+          {isInsufficient ? (
+            <span style={{ background: '#ef4444', color: '#ffffff', fontSize: '9.5px', fontWeight: 800, padding: '2px 8px', borderRadius: '999px' }}>
+              Kurang Rp{deficit.toLocaleString('id-ID')}
+            </span>
+          ) : (
+            <span style={{ background: '#00aa13', color: '#ffffff', fontSize: '9.5px', fontWeight: 800, padding: '2px 8px', borderRadius: '999px' }}>
+              Budget Cukup
+            </span>
+          )}
         </div>
 
         {/* Payment Source Row */}
@@ -268,18 +295,26 @@ export const GoFood3Page: React.FC = () => {
               <span style={{ color: '#94a3b8', fontSize: '14px', marginLeft: '4px' }}>+</span>
             </div>
 
-            {/* GoPay Tabungan by Jago (RED INSUFFICIENT BALANCE) */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {/* GoPay Tabungan by Jago (DYNAMIC CATEGORY BALANCE) */}
+            <div 
+              onClick={() => {
+                if (isInsufficient) {
+                  setSelectedCategory('food');
+                  openSheet('reallocate', 'food');
+                }
+              }}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: isInsufficient ? 'pointer' : 'default' }}
+            >
               <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#00aed6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Wallet size={13} color="#ffffff" />
               </div>
               <div>
                 <div style={{ fontSize: '10px', color: '#64748b', whiteSpace: 'nowrap' }}>
-                  GoPay Tabungan by Jag...
+                  GoPay (Alokasi Makan)
                 </div>
-                {/* Highlighted Red Amount (Rp13.971 < Rp25.001) */}
-                <div style={{ fontSize: '12px', fontWeight: 900, color: '#ef4444' }}>
-                  13.971
+                {/* Highlighted Red Amount if Insufficient */}
+                <div style={{ fontSize: '12px', fontWeight: 900, color: isInsufficient ? '#ef4444' : '#00aa13' }}>
+                  Rp{dailyBalance.toLocaleString('id-ID')}
                 </div>
               </div>
             </div>
@@ -290,9 +325,51 @@ export const GoFood3Page: React.FC = () => {
           </div>
         </div>
 
+        {/* Insufficient Inline Banner */}
+        {isInsufficient && (
+          <div 
+            style={{ 
+              background: '#fff1f2', 
+              border: '1px solid #fecdd3', 
+              borderRadius: '12px', 
+              padding: '7px 12px', 
+              margin: '0 16px 6px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <AlertTriangle size={13} color="#e11d48" />
+              <span style={{ fontSize: '11px', color: '#9f1239', fontWeight: 700 }}>
+                Kurang Rp{deficit.toLocaleString('id-ID')} dari kuota harian
+              </span>
+            </div>
+            <button 
+              onClick={() => {
+                setSelectedCategory('food');
+                openSheet('reallocate', 'food');
+              }}
+              style={{ 
+                background: '#e11d48', 
+                border: 'none', 
+                borderRadius: '999px', 
+                padding: '3px 10px', 
+                color: '#ffffff', 
+                fontSize: '10.5px', 
+                fontWeight: 800, 
+                cursor: 'pointer' 
+              }}
+            >
+              Atur Ulang Budget
+            </button>
+          </div>
+        )}
+
         {/* Big Green Order Button */}
-        <div style={{ padding: '8px 16px 14px' }}>
+        <div style={{ padding: '6px 16px 14px' }}>
           <button 
+            onClick={handleOrderClick}
             style={{ 
               width: '100%', 
               background: '#00aa13', 
@@ -310,6 +387,111 @@ export const GoFood3Page: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Over-Budget Confirmation Modal */}
+      {showOverBudgetPrompt && (
+        <div 
+          style={{ 
+            position: 'fixed', 
+            inset: 0, 
+            background: 'rgba(0,0,0,0.65)', 
+            zIndex: 120, 
+            display: 'flex', 
+            alignItems: 'flex-end', 
+            justifyContent: 'center' 
+          }}
+        >
+          <div 
+            style={{ 
+              width: '100%', 
+              maxWidth: '395px', 
+              background: '#ffffff', 
+              borderTopLeftRadius: '24px', 
+              borderTopRightRadius: '24px', 
+              padding: '20px 20px 24px', 
+              boxShadow: '0 -8px 30px rgba(0,0,0,0.25)' 
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+              <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <AlertTriangle size={20} color="#dc2626" />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '15.5px', fontWeight: 900, color: '#0f172a', margin: 0 }}>
+                  Budget Makan Hari Ini Kurang
+                </h3>
+                <span style={{ fontSize: '11px', color: '#64748b' }}>
+                  Perencanaan Anggaran GoPay
+                </span>
+              </div>
+            </div>
+
+            <p style={{ fontSize: '12.5px', color: '#475569', lineHeight: 1.45, margin: '0 0 16px' }}>
+              Total tagihan <strong>Rp{totalBill.toLocaleString('id-ID')}</strong> melebihi sisa alokasi makan hari ini (<strong>Rp{dailyBalance.toLocaleString('id-ID')}</strong>). Kurang <strong>Rp{deficit.toLocaleString('id-ID')}</strong>.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <button 
+                onClick={() => {
+                  setShowOverBudgetPrompt(false);
+                  setSelectedCategory('food');
+                  openSheet('reallocate', 'food');
+                }}
+                style={{ 
+                  width: '100%', 
+                  padding: '13px', 
+                  borderRadius: '999px', 
+                  background: '#00aa13', 
+                  border: 'none', 
+                  color: '#ffffff', 
+                  fontSize: '13.5px', 
+                  fontWeight: 800, 
+                  cursor: 'pointer' 
+                }}
+              >
+                Atur Ulang Budget di GoPay 🔄
+              </button>
+
+              <button 
+                onClick={() => {
+                  setShowOverBudgetPrompt(false);
+                  simulateOrderGoFood(totalBill);
+                }}
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  borderRadius: '999px', 
+                  background: '#fee2e2', 
+                  border: '1px solid #fca5a5', 
+                  color: '#b91c1c', 
+                  fontSize: '13px', 
+                  fontWeight: 800, 
+                  cursor: 'pointer' 
+                }}
+              >
+                Tetap Pesan (Over-Budget)
+              </button>
+
+              <button 
+                onClick={() => setShowOverBudgetPrompt(false)}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px', 
+                  borderRadius: '999px', 
+                  background: 'transparent', 
+                  border: 'none', 
+                  color: '#64748b', 
+                  fontSize: '12.5px', 
+                  fontWeight: 700, 
+                  cursor: 'pointer' 
+                }}
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

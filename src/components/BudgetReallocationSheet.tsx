@@ -18,8 +18,8 @@ import { CategoryId } from '../types/budget';
 export const BudgetReallocationSheet: React.FC = () => {
   const { state, closeSheet, reallocateBudget } = useBudget();
 
-  // Target deficit category is overbudget candidate or food by default
-  const targetCategory: CategoryId = state.overBudgetCandidate || state.selectedCategoryForDetail || 'food';
+  // Target deficit category is the category selected for detail, or overbudget candidate, or food by default
+  const targetCategory: CategoryId = state.selectedCategoryForDetail || state.overBudgetCandidate || 'food';
   const [sourceCategory, setSourceCategory] = useState<CategoryId>('general');
   const [amount, setAmount] = useState<number>(30000);
   const [step, setStep] = useState<'select' | 'confirm'>('select');

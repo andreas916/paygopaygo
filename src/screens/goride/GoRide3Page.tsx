@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useBudget } from '../../context/BudgetContext';
 import { 
   ArrowLeft, 
@@ -8,50 +8,58 @@ import {
   User, 
   ArrowRight, 
   Percent, 
-  MoreHorizontal,
-  Wallet,
-  Bike
+  MoreHorizontal, 
+  Wallet, 
+  Bike,
+  AlertTriangle
 } from 'lucide-react';
 
 export const GoRide3Page: React.FC = () => {
-  const { goToScreen } = useBudget();
+  const { state, goToScreen, openSheet, setSelectedCategory, simulateOrderGoRide } = useBudget();
+  const [selectedRide, setSelectedRide] = useState<'cepat' | 'comfort'>('cepat');
+  const [showOverBudgetPrompt, setShowOverBudgetPrompt] = useState(false);
+
+  const currentFare = selectedRide === 'cepat' ? 58500 : 63500;
+  const transportCat = state.categories.find(c => c.id === 'transport');
+  const dailyBalance = transportCat ? transportCat.todayRemaining : 17000;
+  const isInsufficient = dailyBalance < currentFare;
+  const deficit = Math.max(0, currentFare - dailyBalance);
+
+  const handleBookClick = () => {
+    if (isInsufficient) {
+      setShowOverBudgetPrompt(true);
+    } else {
+      simulateOrderGoRide(currentFare);
+    }
+  };
 
   return (
     <div 
       style={{ 
         background: '#e2e8f0', 
         height: '100%', 
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        overflow: 'hidden',
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        position: 'relative', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        overflow: 'hidden', 
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' 
       }}
     >
       {/* Map Route Area */}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: '380px', overflow: 'hidden' }}>
         <svg width="100%" height="100%" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice">
-          {/* Topographic Map Background */}
           <rect width="100%" height="100%" fill="#eaf5ea" />
-          
-          {/* Hills / Contour fills */}
           <path d="M0,0 Q120,40 240,10 T400,30 L400,0 Z" fill="#d7ecd7" />
           <path d="M0,80 Q160,140 280,70 T400,100 L400,0 L0,0 Z" fill="#cde5cd" opacity="0.6" />
           <path d="M120,220 Q240,180 340,240 T400,280 L400,320 L120,320 Z" fill="#d7ecd7" />
-
-          {/* Road Network */}
           <path d="M-20,120 L420,130" stroke="#cbd5e1" strokeWidth="4" fill="none" />
           <path d="M100,50 L110,260" stroke="#cbd5e1" strokeWidth="6" fill="none" />
           <path d="M110,260 L380,240" stroke="#cbd5e1" strokeWidth="6" fill="none" />
           <path d="M220,0 L200,320" stroke="#cbd5e1" strokeWidth="4" fill="none" />
-
-          {/* City Labels */}
           <text x="80" y="70" fontSize="11" fontWeight="800" fill="#334155">Depok</text>
           <text x="10" y="115" fontSize="10" fontWeight="700" fill="#64748b">Cimahi</text>
           <text x="250" y="195" fontSize="10" fontWeight="700" fill="#64748b">Mie Gacoan</text>
-
-          {/* Green Winding Highway Route */}
           <path 
             d="M110,105 L110,125 Q130,130 180,130 Q210,145 235,140 L275,138" 
             stroke="#00aa13" 
@@ -60,22 +68,16 @@ export const GoRide3Page: React.FC = () => {
             strokeLinejoin="round" 
             fill="none" 
           />
-
-          {/* Origin Pin: Kos Daniel */}
           <g transform="translate(100, 85)">
             <circle cx="10" cy="10" r="13" fill="#00aa13" stroke="#ffffff" strokeWidth="2.5" />
             <path d="M10,15 L10,6 M6,10 L10,6 L14,10" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
             <circle cx="10" cy="27" r="4.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
           </g>
-
-          {/* Destination Pin: Universitas Indonesia */}
           <g transform="translate(265, 118)">
             <circle cx="10" cy="10" r="13" fill="#ea580c" stroke="#ffffff" strokeWidth="2.5" />
             <circle cx="10" cy="10" r="4.5" fill="#ffffff" />
           </g>
         </svg>
-
-        {/* Floating Top Route Summary Card */}
         <div 
           style={{ 
             position: 'absolute', 
@@ -106,7 +108,6 @@ export const GoRide3Page: React.FC = () => {
               <span style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a' }}>Universitas Indonesia</span>
             </div>
           </div>
-
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#fef3c7', padding: '5px 10px', borderRadius: '999px', cursor: 'pointer' }}>
             <Plus size={13} color="#b45309" />
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#92400e' }}>Tambah</span>
@@ -114,7 +115,6 @@ export const GoRide3Page: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Services Sheet */}
       <div 
         style={{ 
           marginTop: 'auto', 
@@ -123,11 +123,10 @@ export const GoRide3Page: React.FC = () => {
           borderTopRightRadius: '24px', 
           padding: '10px 16px 16px', 
           boxShadow: '0 -6px 20px rgba(0,0,0,0.12)', 
-          position: 'relative',
+          position: 'relative', 
           zIndex: 20 
         }}
       >
-        {/* Floating Controls Row (Back Button & Trip Type Pill side by side) cleanly above sheet */}
         <div 
           style={{ 
             position: 'absolute', 
@@ -139,7 +138,6 @@ export const GoRide3Page: React.FC = () => {
             zIndex: 25 
           }}
         >
-          {/* Floating Back Button */}
           <button 
             onClick={() => goToScreen('goride_2')}
             style={{ 
@@ -157,8 +155,6 @@ export const GoRide3Page: React.FC = () => {
           >
             <ArrowLeft size={19} color="#0f172a" />
           </button>
-
-          {/* Floating Trip Type Pill */}
           <div 
             style={{ 
               background: '#ffffff', 
@@ -176,10 +172,8 @@ export const GoRide3Page: React.FC = () => {
           </div>
         </div>
         
-        {/* Top Handle */}
         <div style={{ width: '36px', height: '4px', borderRadius: '999px', background: '#cbd5e1', margin: '0 auto 10px' }} />
 
-        {/* Service Tab Switcher (GoRide vs GoCar) */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '28px', borderBottom: '1px solid #f1f5f9', paddingBottom: '8px', marginBottom: '12px' }}>
           <div style={{ position: 'relative', paddingBottom: '6px', cursor: 'pointer' }}>
             <span style={{ fontSize: '14px', fontWeight: 800, color: '#00aa13' }}>GoRide</span>
@@ -190,18 +184,18 @@ export const GoRide3Page: React.FC = () => {
           </div>
         </div>
 
-        {/* Selected Service Card 1 (GoRide) */}
         <div 
+          onClick={() => setSelectedRide('cepat')}
           style={{ 
-            background: '#ffffff', 
+            background: selectedRide === 'cepat' ? '#ffffff' : '#f8fafc', 
             borderRadius: '16px', 
-            border: '2px solid #00aa13', 
-            padding: '10px 12px',
-            marginBottom: '8px',
-            boxShadow: '0 2px 10px rgba(0, 170, 19, 0.08)'
+            border: selectedRide === 'cepat' ? '2px solid #00aa13' : '1px solid #e2e8f0', 
+            padding: '10px 12px', 
+            marginBottom: '8px', 
+            boxShadow: selectedRide === 'cepat' ? '0 2px 10px rgba(0, 170, 19, 0.08)' : 'none',
+            cursor: 'pointer' 
           }}
         >
-          {/* Header Row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Bike size={16} color="#00aa13" />
@@ -215,17 +209,15 @@ export const GoRide3Page: React.FC = () => {
               <span>1 penumpang</span>
             </div>
           </div>
-
-          {/* Option A: CEPAAAT (Selected) */}
           <div 
             style={{ 
-              background: '#dcfce7', 
+              background: selectedRide === 'cepat' ? '#dcfce7' : 'transparent', 
               borderRadius: '12px', 
-              padding: '8px 10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '6px'
+              padding: '8px 10px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between', 
+              marginBottom: '6px' 
             }}
           >
             <div>
@@ -239,16 +231,13 @@ export const GoRide3Page: React.FC = () => {
                 Cepet dijemput sesuai estimasi
               </div>
             </div>
-
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '14px', fontWeight: 900, color: '#0f172a' }}>Rp58.500</span>
-              <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#00aa13', border: '3px solid #ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ffffff' }} />
+              <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: selectedRide === 'cepat' ? '#00aa13' : '#cbd5e1', border: '3px solid #ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {selectedRide === 'cepat' && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ffffff' }} />}
               </div>
             </div>
           </div>
-
-          {/* Option B: MURAAAH (Disabled) */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 6px', opacity: 0.6 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -263,17 +252,18 @@ export const GoRide3Page: React.FC = () => {
           </div>
         </div>
 
-        {/* Option 2: GoRide Comfort */}
         <div 
+          onClick={() => setSelectedRide('comfort')}
           style={{ 
-            background: '#ffffff', 
+            background: selectedRide === 'comfort' ? '#ffffff' : '#f8fafc', 
             borderRadius: '14px', 
-            border: '1px solid #e2e8f0', 
-            padding: '10px 12px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '10px'
+            border: selectedRide === 'comfort' ? '2px solid #00aa13' : '1px solid #e2e8f0', 
+            padding: '10px 12px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            marginBottom: '10px',
+            cursor: 'pointer' 
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -285,38 +275,46 @@ export const GoRide3Page: React.FC = () => {
               <div style={{ fontSize: '10px', color: '#64748b' }}>4-6 menit • 1 penumpang</div>
             </div>
           </div>
-          <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0f172a' }}>Rp63.500</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0f172a' }}>Rp63.500</span>
+            <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: selectedRide === 'comfort' ? '#00aa13' : '#cbd5e1', border: '3px solid #ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {selectedRide === 'comfort' && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ffffff' }} />}
+            </div>
+          </div>
         </div>
 
-        {/* PAYMENT & VOUCHER ROW (CRITICAL HIGHLIGHT: Saldo Kurang) */}
         <div 
           style={{ 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between', 
-            padding: '8px 2px',
-            borderTop: '1px solid #f1f5f9',
-            marginBottom: '10px',
-            gap: '8px'
+            padding: '8px 2px', 
+            borderTop: '1px solid #f1f5f9', 
+            marginBottom: isInsufficient ? '6px' : '10px', 
+            gap: '8px' 
           }}
         >
-          {/* Left: GoPay Tabungan & SISA SALDO FULL VIEW */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1.2, minWidth: 0 }}>
+          <div 
+            onClick={() => {
+              if (isInsufficient) {
+                setSelectedCategory('transport');
+                openSheet('reallocate', 'transport');
+              }
+            }}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1.2, minWidth: 0, cursor: isInsufficient ? 'pointer' : 'default' }}
+          >
             <div style={{ width: '26px', height: '26px', borderRadius: '8px', background: '#00aed6', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Wallet size={14} color="#ffffff" />
             </div>
             <div style={{ minWidth: 0 }}>
               <div style={{ fontSize: '11px', fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                GoPay Tabung... ❯
+                GoPay (Alokasi Transport) ❯
               </div>
-              {/* Saldo Red Highlight (TIDAK TERPOTONG) */}
-              <div style={{ fontSize: '10.5px', fontWeight: 800, color: '#ef4444', whiteSpace: 'nowrap' }}>
-                Sisa saldo: Rp13.971
+              <div style={{ fontSize: '10.5px', fontWeight: 800, color: isInsufficient ? '#ef4444' : '#00aa13', whiteSpace: 'nowrap' }}>
+                Sisa kuota: Rp{dailyBalance.toLocaleString('id-ID')}
               </div>
             </div>
           </div>
-
-          {/* Center: Voucher pill (compact) */}
           <div 
             style={{ 
               display: 'flex', 
@@ -325,24 +323,60 @@ export const GoRide3Page: React.FC = () => {
               background: '#fff7ed', 
               border: '1px solid #fed7aa', 
               borderRadius: '999px', 
-              padding: '4px 8px',
-              cursor: 'pointer',
-              flexShrink: 0
+              padding: '4px 8px', 
+              cursor: 'pointer', 
+              flexShrink: 0 
             }}
           >
             <Percent size={11} color="#ea580c" />
             <span style={{ fontSize: '10px', fontWeight: 800, color: '#c2410c' }}>1 voucher</span>
           </div>
-
-          {/* Right: More button */}
           <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
             <MoreHorizontal size={16} color="#64748b" />
           </div>
         </div>
 
-        {/* Bottom CTA Button Row */}
+        {isInsufficient && (
+          <div 
+            style={{ 
+              background: '#fff1f2', 
+              border: '1px solid #fecdd3', 
+              borderRadius: '12px', 
+              padding: '6px 10px', 
+              marginBottom: '8px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between' 
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <AlertTriangle size={13} color="#e11d48" />
+              <span style={{ fontSize: '10.5px', color: '#9f1239', fontWeight: 700 }}>
+                Kurang Rp{deficit.toLocaleString('id-ID')} dari kuota transport
+              </span>
+            </div>
+            <button 
+              onClick={() => {
+                setSelectedCategory('transport');
+                openSheet('reallocate', 'transport');
+              }}
+              style={{ 
+                background: '#e11d48', 
+                border: 'none', 
+                borderRadius: '999px', 
+                padding: '3px 8px', 
+                color: '#ffffff', 
+                fontSize: '10px', 
+                fontWeight: 800, 
+                cursor: 'pointer' 
+              }}
+            >
+              Atur Ulang
+            </button>
+          </div>
+        )}
+
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          {/* Instant Pill Button */}
           <button 
             style={{ 
               background: '#ffffff', 
@@ -351,16 +385,15 @@ export const GoRide3Page: React.FC = () => {
               padding: '10px 14px', 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '6px',
+              gap: '6px', 
               cursor: 'pointer' 
             }}
           >
             <User size={14} color="#00aa13" />
             <span style={{ fontSize: '12px', fontWeight: 800, color: '#00aa13' }}>Instant</span>
           </button>
-
-          {/* Big Green Book Button */}
           <button 
+            onClick={handleBookClick}
             style={{ 
               flex: 1, 
               background: '#00aa13', 
@@ -369,19 +402,119 @@ export const GoRide3Page: React.FC = () => {
               padding: '12px 16px', 
               display: 'flex', 
               alignItems: 'center', 
-              justifyContent: 'space-between',
-              cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(0, 170, 19, 0.35)'
+              justifyContent: 'space-between', 
+              cursor: 'pointer', 
+              boxShadow: '0 4px 12px rgba(0, 170, 19, 0.35)' 
             }}
           >
             <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#ffffff' }}>Book</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '13.5px', fontWeight: 900, color: '#ffffff' }}>Rp58.500</span>
+              <span style={{ fontSize: '13.5px', fontWeight: 900, color: '#ffffff' }}>Rp{currentFare.toLocaleString('id-ID')}</span>
               <ArrowRight size={15} color="#ffffff" />
             </div>
           </button>
         </div>
       </div>
+
+      {showOverBudgetPrompt && (
+        <div 
+          style={{ 
+            position: 'fixed', 
+            inset: 0, 
+            background: 'rgba(0,0,0,0.65)', 
+            zIndex: 120, 
+            display: 'flex', 
+            alignItems: 'flex-end', 
+            justifyContent: 'center' 
+          }}
+        >
+          <div 
+            style={{ 
+              width: '100%', 
+              maxWidth: '395px', 
+              background: '#ffffff', 
+              borderTopLeftRadius: '24px', 
+              borderTopRightRadius: '24px', 
+              padding: '20px 20px 24px', 
+              boxShadow: '0 -8px 30px rgba(0,0,0,0.25)' 
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+              <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <AlertTriangle size={20} color="#dc2626" />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '15.5px', fontWeight: 900, color: '#0f172a', margin: 0 }}>
+                  Budget Transportasi Kurang
+                </h3>
+                <span style={{ fontSize: '11px', color: '#64748b' }}>
+                  Perencanaan Anggaran GoPay
+                </span>
+              </div>
+            </div>
+            <p style={{ fontSize: '12.5px', color: '#475569', lineHeight: 1.45, margin: '0 0 16px' }}>
+              Tarif GoRide <strong>Rp{currentFare.toLocaleString('id-ID')}</strong> melebihi kuota transport harian (<strong>Rp{dailyBalance.toLocaleString('id-ID')}</strong>). Kurang <strong>Rp{deficit.toLocaleString('id-ID')}</strong>.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <button 
+                onClick={() => {
+                  setShowOverBudgetPrompt(false);
+                  setSelectedCategory('transport');
+                  openSheet('reallocate', 'transport');
+                }}
+                style={{ 
+                  width: '100%', 
+                  padding: '13px', 
+                  borderRadius: '999px', 
+                  background: '#00aa13', 
+                  border: 'none', 
+                  color: '#ffffff', 
+                  fontSize: '13.5px', 
+                  fontWeight: 800, 
+                  cursor: 'pointer' 
+                }}
+              >
+                Atur Ulang Budget di GoPay 🔄
+              </button>
+              <button 
+                onClick={() => {
+                  setShowOverBudgetPrompt(false);
+                  simulateOrderGoRide(currentFare);
+                }}
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  borderRadius: '999px', 
+                  background: '#fee2e2', 
+                  border: '1px solid #fca5a5', 
+                  color: '#b91c1c', 
+                  fontSize: '13px', 
+                  fontWeight: 800, 
+                  cursor: 'pointer' 
+                }}
+              >
+                Tetap Pesan (Over-Budget)
+              </button>
+              <button 
+                onClick={() => setShowOverBudgetPrompt(false)}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px', 
+                  borderRadius: '999px', 
+                  background: 'transparent', 
+                  border: 'none', 
+                  color: '#64748b', 
+                  fontSize: '12.5px', 
+                  fontWeight: 700, 
+                  cursor: 'pointer' 
+                }}
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -16,8 +16,8 @@ const INITIAL_CATEGORIES: CategoryBudget[] = [
     dailyAllowance: 40000,
     weekdayAllowance: 40000,
     weekendAllowance: 50000,
-    todaySpent: 0,
-    todayRemaining: 40000,
+    todaySpent: 22000,
+    todayRemaining: 18000,
     status: 'safe'
   },
   {
@@ -95,6 +95,17 @@ const INITIAL_CATEGORIES: CategoryBudget[] = [
 ];
 
 const INITIAL_TRANSACTIONS: Transaction[] = [
+  {
+    id: 'tx-0',
+    merchant: 'Kantin Mbok Darmi',
+    subtext: 'Sarapan Pagi',
+    amount: 22000,
+    category: 'food',
+    categoryName: 'Makan & Minum',
+    dateStr: 'Hari ini, 08.15',
+    paymentMethod: 'Tabungan by Jago',
+    serviceType: 'merchant'
+  },
   {
     id: 'tx-1',
     merchant: 'WAROENG SOEJO',
@@ -453,6 +464,162 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     });
   };
 
+  // 1b. Simulate Ordering GoFood from Checkout (Default Rp25.001)
+  const simulateOrderGoFood = (amount: number = 25001) => {
+    setState(prev => {
+      const foodCat = prev.categories.find(c => c.id === 'food');
+      const prevTodayRemaining = foodCat ? foodCat.todayRemaining : 18000;
+      const isDeficit = amount > prevTodayRemaining;
+
+      const updatedCategories = prev.categories.map(cat => {
+        if (cat.id === 'food') {
+          const newSpent = cat.spent + amount;
+          const newRemaining = Math.max(0, cat.monthlyBudget - newSpent);
+          const newTodaySpent = cat.todaySpent + amount;
+          const newTodayRemaining = Math.max(0, cat.dailyAllowance - newTodaySpent);
+          const status: 'safe' | 'warning' | 'overbudget' =
+            newSpent > cat.monthlyBudget ? 'overbudget' : newRemaining < 80000 ? 'warning' : 'safe';
+
+          return {
+            ...cat,
+            spent: newSpent,
+            remaining: newRemaining,
+            todaySpent: newTodaySpent,
+            todayRemaining: newTodayRemaining,
+            status
+          };
+        }
+        return cat;
+      });
+
+      const newTx: Transaction = {
+        id: `tx-${Date.now()}`,
+        merchant: 'GoFood • Ayam Bakar Madu Lisa',
+        subtext: '1 item • Ayam Bakar Madu Dada/Paha',
+        amount: amount,
+        category: 'food',
+        categoryName: 'Makan & Minum',
+        dateStr: 'Baru saja',
+        paymentMethod: 'Saldo GoPay',
+        serviceType: 'gofood'
+      };
+
+      const newTotalSpent = prev.totalSpent + amount;
+      const newMainBalance = Math.max(0, prev.mainBalance - amount);
+
+      let toastTitle = 'Pesanan GoFood Diproses 🍗';
+      let toastMsg = `Pembayaran Rp${amount.toLocaleString('id-ID')} dipotong dari GoPay.`;
+      let toastSub = '';
+      let toastType: 'info' | 'success' | 'warning' = 'info';
+
+      if (isDeficit) {
+        toastTitle = 'Pesanan GoFood Diproses (Over-Budget) 🍗';
+        toastMsg = `Total pesanan Rp${amount.toLocaleString('id-ID')} melebihi kuota makan hari ini (Rp${prevTodayRemaining.toLocaleString('id-ID')}).`;
+        toastSub = 'Sisa kuota makan hari ini menjadi Rp0. Gunakan Atur Ulang Budget di GoPay untuk menyeimbangkan.';
+        toastType = 'warning';
+      } else {
+        const fCat = updatedCategories.find(c => c.id === 'food');
+        toastMsg = `Sisa kuota makan hari ini: Rp${(fCat?.todayRemaining ?? 0).toLocaleString('id-ID')}.`;
+        toastSub = 'Pesanan tercatat aman dalam kuota harian!';
+        toastType = 'success';
+      }
+
+      return {
+        ...prev,
+        mainBalance: newMainBalance,
+        totalSpent: newTotalSpent,
+        categories: updatedCategories,
+        transactions: [newTx, ...prev.transactions],
+        activeScreen: 'gojek',
+        notificationToast: {
+          visible: true,
+          title: toastTitle,
+          message: toastMsg,
+          submessage: toastSub,
+          type: toastType
+        }
+      };
+    });
+  };
+
+  // 1c. Simulate Ordering GoRide from Checkout (Default Rp58.500)
+  const simulateOrderGoRide = (fare: number = 58500) => {
+    setState(prev => {
+      const transportCat = prev.categories.find(c => c.id === 'transport');
+      const prevTodayRemaining = transportCat ? transportCat.todayRemaining : 17000;
+      const isDeficit = fare > prevTodayRemaining;
+
+      const updatedCategories = prev.categories.map(cat => {
+        if (cat.id === 'transport') {
+          const newSpent = cat.spent + fare;
+          const newRemaining = Math.max(0, cat.monthlyBudget - newSpent);
+          const newTodaySpent = cat.todaySpent + fare;
+          const newTodayRemaining = Math.max(0, cat.dailyAllowance - newTodaySpent);
+          const status: 'safe' | 'warning' | 'overbudget' =
+            newSpent > cat.monthlyBudget ? 'overbudget' : newRemaining < 50000 ? 'warning' : 'safe';
+
+          return {
+            ...cat,
+            spent: newSpent,
+            remaining: newRemaining,
+            todaySpent: newTodaySpent,
+            todayRemaining: newTodayRemaining,
+            status
+          };
+        }
+        return cat;
+      });
+
+      const newTx: Transaction = {
+        id: `tx-${Date.now()}`,
+        merchant: 'GoRide • Universitas Indonesia',
+        subtext: 'Kos Daniel ➔ Universitas Indonesia',
+        amount: fare,
+        category: 'transport',
+        categoryName: 'Transportasi',
+        dateStr: 'Baru saja',
+        paymentMethod: 'Saldo GoPay',
+        serviceType: 'goride'
+      };
+
+      const newTotalSpent = prev.totalSpent + fare;
+      const newMainBalance = Math.max(0, prev.mainBalance - fare);
+
+      let toastTitle = 'Perjalanan GoRide Selesai 🛵';
+      let toastMsg = `Tarif Rp${fare.toLocaleString('id-ID')} dipotong dari GoPay.`;
+      let toastSub = '';
+      let toastType: 'info' | 'success' | 'warning' = 'info';
+
+      if (isDeficit) {
+        toastTitle = 'Perjalanan GoRide Diproses (Over-Budget) 🛵';
+        toastMsg = `Tarif Rp${fare.toLocaleString('id-ID')} melebihi kuota transport harian (Rp${prevTodayRemaining.toLocaleString('id-ID')}).`;
+        toastSub = 'Sisa kuota harian menjadi Rp0. Gunakan Atur Ulang Budget di GoPay untuk menyeimbangkan.';
+        toastType = 'warning';
+      } else {
+        const transCat = updatedCategories.find(c => c.id === 'transport');
+        toastMsg = `Sisa kuota transport hari ini: Rp${(transCat?.todayRemaining ?? 0).toLocaleString('id-ID')}.`;
+        toastSub = 'Perjalanan hemat sesuai alokasi budget harianmu!';
+        toastType = 'success';
+      }
+
+      return {
+        ...prev,
+        mainBalance: newMainBalance,
+        totalSpent: newTotalSpent,
+        categories: updatedCategories,
+        transactions: [newTx, ...prev.transactions],
+        activeScreen: 'gojek',
+        notificationToast: {
+          visible: true,
+          title: toastTitle,
+          message: toastMsg,
+          submessage: toastSub,
+          type: toastType
+        }
+      };
+    });
+  };
+
   // 2. Trigger Over-Budget State (Food exceeds budget by Rp30.000)
   const triggerOverBudgetDemo = () => {
     setState(prev => {
@@ -504,12 +671,14 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           const newBudget = cat.monthlyBudget + amount;
           const newRemaining = Math.max(0, newBudget - cat.spent);
           const newPct = Math.round((newBudget / prev.totalMonthlyBudget) * 100);
+          const newDaily = Math.round(newRemaining / 21.25);
           return {
             ...cat,
             monthlyBudget: newBudget,
             percentage: newPct,
             remaining: newRemaining,
-            todayRemaining: Math.max(0, cat.dailyAllowance - cat.todaySpent + 10000),
+            dailyAllowance: newDaily,
+            todayRemaining: cat.todayRemaining + amount,
             status: newRemaining >= 0 ? 'safe' as const : 'overbudget' as const
           };
         }
@@ -517,11 +686,14 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           const newBudget = cat.monthlyBudget - amount;
           const newRemaining = Math.max(0, newBudget - cat.spent);
           const newPct = Math.round((newBudget / prev.totalMonthlyBudget) * 100);
+          const newDaily = Math.round(newRemaining / 21.25);
           return {
             ...cat,
             monthlyBudget: newBudget,
             percentage: newPct,
             remaining: newRemaining,
+            dailyAllowance: newDaily,
+            todayRemaining: Math.max(0, cat.todayRemaining - amount),
             status: newRemaining >= 0 ? 'safe' as const : 'overbudget' as const
           };
         }
@@ -584,6 +756,8 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         openSheet,
         closeSheet,
         simulateGoFoodTransaction,
+        simulateOrderGoFood,
+        simulateOrderGoRide,
         triggerOverBudgetDemo,
         reallocateBudget,
         updateCategoryPercentage,
