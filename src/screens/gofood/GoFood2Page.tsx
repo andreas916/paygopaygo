@@ -25,11 +25,11 @@ export const GoFood2Page: React.FC = () => {
       style={{ 
         background: '#f8fafc', 
         minHeight: '100%', 
-        display: 'flex',
-        flexDirection: 'column',
         position: 'relative', 
         color: '#0f172a', 
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' 
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        flexShrink: 0,
+        paddingBottom: '20px'
       }}
     >
       {/* Top Food Platter Cover Banner */}
@@ -41,7 +41,8 @@ export const GoFood2Page: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          flexShrink: 0
         }}
       >
         {/* Stylized Food Visual Graphic */}
@@ -257,15 +258,12 @@ export const GoFood2Page: React.FC = () => {
         </div>
       </div>
 
-      {/* Spacer to push floating bar down */}
-      <div style={{ flex: 1, minHeight: '16px' }} />
-
       {/* Floating Bottom Cart Bar (Click to proceed to GoFood 3) */}
       <div 
         style={{ 
           position: 'sticky', 
           bottom: '16px', 
-          margin: 'auto 16px 16px',
+          margin: '24px 16px 16px',
           zIndex: 80,
           display: 'flex',
           gap: '8px',

@@ -20,7 +20,8 @@ export const GoRide1Page: React.FC = () => {
         minHeight: '100%', 
         position: 'relative',
         color: '#ffffff',
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        flexShrink: 0
       }}
     >
       {/* Top Night Banner Section */}
@@ -29,7 +30,8 @@ export const GoRide1Page: React.FC = () => {
           background: 'linear-gradient(180deg, #004d08 0%, #00730d 60%, #00880f 100%)',
           padding: '12px 16px 20px',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          flexShrink: 0
         }}
       >
         {/* Back Button */}

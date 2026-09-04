@@ -23,21 +23,22 @@ export const GoFood1Page: React.FC = () => {
       style={{ 
         background: '#ffffff', 
         minHeight: '100%', 
-        display: 'flex',
-        flexDirection: 'column',
         position: 'relative', 
         color: '#0f172a', 
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' 
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        flexShrink: 0,
+        paddingBottom: '20px'
       }}
     >
       {/* Top Red Hero Header */}
       <div 
         style={{ 
-          background: 'linear-gradient(180deg, #be123c 0%, #e11d48 65%, #f43f5e 100%)', 
-          padding: '12px 16px 22px',
+          background: 'linear-gradient(180deg, #be123c 0%, #e11d48 60%, #f43f5e 100%)', 
+          padding: '12px 16px 36px',
           color: '#ffffff',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          flexShrink: 0
         }}
       >
         {/* Top Action Row */}
@@ -93,22 +94,22 @@ export const GoFood1Page: React.FC = () => {
         </div>
 
         {/* Hero Title & Graphics */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ maxWidth: '62%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginTop: '6px' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
             <h1 style={{ fontSize: '18px', fontWeight: 900, lineHeight: 1.25, margin: '0 0 6px', color: '#ffffff' }}>
               Laper? GoFoodin dari resto terenak di kotamu
             </h1>
-            <p style={{ fontSize: '11px', color: '#ffe4e6', margin: 0, fontWeight: 600 }}>
-              Cek resto-resto enak.
+            <p style={{ fontSize: '11.5px', color: '#ffe4e6', margin: 0, fontWeight: 500 }}>
+              Cek resto-resto enak disekitarmu.
             </p>
           </div>
 
           {/* Food Illustration */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-            <div style={{ fontSize: '38px', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
+            <div style={{ fontSize: '36px', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' }}>
               🍛
             </div>
-            <div style={{ display: 'flex', gap: '4px', fontSize: '18px' }}>
+            <div style={{ display: 'flex', gap: '4px', fontSize: '16px' }}>
               <span>🍔</span>
               <span>🍜</span>
               <span>🍹</span>
@@ -118,12 +119,12 @@ export const GoFood1Page: React.FC = () => {
       </div>
 
       {/* Search Input Bar (Overlapping) */}
-      <div style={{ padding: '0 16px', marginTop: '-16px', position: 'relative', zIndex: 10 }}>
+      <div style={{ padding: '0 16px', marginTop: '-18px', position: 'relative', zIndex: 10, flexShrink: 0 }}>
         <div 
           style={{ 
             background: '#ffffff', 
             borderRadius: '999px', 
-            padding: '10px 16px', 
+            padding: '11px 16px', 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between',
@@ -371,15 +372,12 @@ export const GoFood1Page: React.FC = () => {
         </div>
       </div>
 
-      {/* Spacer to push floating bar down */}
-      <div style={{ flex: 1, minHeight: '16px' }} />
-
       {/* Floating Green Bottom Cart Bar */}
       <div 
         style={{ 
           position: 'sticky', 
           bottom: '16px', 
-          margin: 'auto 16px 16px',
+          margin: '24px 16px 16px',
           zIndex: 80,
           display: 'flex',
           gap: '8px',
