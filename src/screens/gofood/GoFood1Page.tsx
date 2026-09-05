@@ -214,6 +214,7 @@ export const GoFood1Page: React.FC = () => {
         >
           {/* Item 1: Ayam Bakar Madu Dada/Paha (CLICK TO PROCEED TO GOFOOD_2) */}
           <div 
+            className="demo-glow-coral"
             onClick={() => goToScreen('gofood_2')}
             style={{ 
               width: '150px', 

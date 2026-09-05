@@ -150,6 +150,7 @@ export const HomePage: React.FC = () => {
 
         {/* PRIMARY HERO CALLOUT: Monthly Spending Pill (Navigates to Financial Report!) */}
         <div 
+          className="demo-glow-cyan"
           onClick={() => {
             setReportTab('expense');
             goToScreen('report');
@@ -338,7 +339,7 @@ export const HomePage: React.FC = () => {
               title="Buka Aplikasi Gojek"
             >
               <div style={{ position: 'relative' }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '18px', background: '#192b1e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="demo-glow-green" style={{ width: '48px', height: '48px', borderRadius: '18px', background: '#192b1e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Bike size={22} color="#22c55e" />
                 </div>
                 <span style={{ position: 'absolute', bottom: '-4px', left: '50%', transform: 'translateX(-50%)', background: '#00aa13', color: '#fff', fontSize: '7.5px', fontWeight: 800, padding: '1px 4px', borderRadius: '3px', whiteSpace: 'nowrap' }}>

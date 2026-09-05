@@ -227,25 +227,29 @@ export const GoRide1Page: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {/* Target 1: Universitas Indonesia (CLICKABLE) */}
           <div 
+            className="demo-glow-green"
             onClick={() => goToScreen('goride_2')}
             style={{ 
               display: 'flex', 
               alignItems: 'center', 
               gap: '14px', 
-              padding: '14px 0', 
-              borderBottom: '1px solid #f1f5f9',
-              cursor: 'pointer'
+              padding: '12px 14px', 
+              background: '#f8fafc',
+              borderRadius: '16px',
+              border: '1.5px solid #a7f3d0',
+              cursor: 'pointer',
+              marginBottom: '8px'
             }}
           >
-            <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <Clock size={16} color="#64748b" />
+            <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Clock size={16} color="#00aa13" />
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
                 Universitas Indonesia
               </div>
             </div>
-            <Bookmark size={16} color="#94a3b8" />
+            <Bookmark size={16} color="#00aa13" />
           </div>
 
           {/* Target 2: Mie Gacoan */}

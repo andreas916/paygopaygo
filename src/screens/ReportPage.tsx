@@ -123,7 +123,7 @@ export const ReportPage: React.FC = () => {
           style={{
             background: 'none',
             border: 'none',
-            color: '#00d618',
+            color: '#7c7c7cff',
             display: 'flex',
             alignItems: 'center',
             gap: '4px',
@@ -212,6 +212,7 @@ export const ReportPage: React.FC = () => {
             </button>
 
             <button 
+              className="demo-glow-green"
               onClick={() => setActiveTab('income')}
               style={{
                 flex: 1,
@@ -518,7 +519,7 @@ export const ReportPage: React.FC = () => {
                     Total pemasukan bulan ini
                   </span>
                 </div>
-                <span style={{ fontSize: '11px', color: '#00d618', fontWeight: 600 }}>
+                <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600 }}>
                   Sep 2026
                 </span>
               </div>
@@ -729,7 +730,7 @@ export const ReportPage: React.FC = () => {
 
                         {/* Calculated Rupiah Nominal based on Percentage */}
                         <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: '14px', fontWeight: 800, color: '#00d618' }}>
+                          <div style={{ fontSize: '14px', fontWeight: 800, color: '#ffffff' }}>
                             Rp{cat.monthlyBudget.toLocaleString('id-ID')}
                           </div>
                           <div style={{ fontSize: '10px', color: isOver ? '#ff4343' : '#94a3b8' }}>
@@ -854,7 +855,7 @@ export const ReportPage: React.FC = () => {
                   style={{ background: '#1c2430', borderRadius: '14px', padding: '10px 8px', border: '1px solid rgba(255, 255, 255, 0.05)', cursor: 'pointer' }}
                 >
                   <div style={{ fontSize: '10px', color: '#cbd5e1', fontWeight: 600, marginBottom: '2px' }}>Makanan</div>
-                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#00d618' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
                     Rp{foodCat ? foodCat.todayRemaining.toLocaleString('id-ID') : '40.000'}
                   </div>
                   <div style={{ fontSize: '9px', color: '#64748b' }}>Sisa hari ini</div>
@@ -865,7 +866,7 @@ export const ReportPage: React.FC = () => {
                   style={{ background: '#1c2430', borderRadius: '14px', padding: '10px 8px', border: '1px solid rgba(255, 255, 255, 0.05)', cursor: 'pointer' }}
                 >
                   <div style={{ fontSize: '10px', color: '#cbd5e1', fontWeight: 600, marginBottom: '2px' }}>Transport</div>
-                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#00d618' }}>Rp17.000</div>
+                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>Rp17.000</div>
                   <div style={{ fontSize: '9px', color: '#64748b' }}>Sisa hari ini</div>
                 </div>
 
@@ -874,7 +875,7 @@ export const ReportPage: React.FC = () => {
                   style={{ background: '#1c2430', borderRadius: '14px', padding: '10px 8px', border: '1px solid rgba(255, 255, 255, 0.05)', cursor: 'pointer' }}
                 >
                   <div style={{ fontSize: '10px', color: '#cbd5e1', fontWeight: 600, marginBottom: '2px' }}>Belanja</div>
-                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#00d618' }}>Rp18.000</div>
+                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>Rp18.000</div>
                   <div style={{ fontSize: '9px', color: '#64748b' }}>Sisa hari ini</div>
                 </div>
               </div>
@@ -939,7 +940,7 @@ export const ReportPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#00d618', fontSize: '11.5px', fontWeight: 700 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 700 }}>
                   <span>Lihat rekomendasi</span>
                   <ChevronRight size={14} />
                 </div>
@@ -984,7 +985,7 @@ export const ReportPage: React.FC = () => {
                     </div>
 
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#00d618' }}>
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
                         +Rp{tx.amount.toLocaleString('id-ID')}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px', fontSize: '9.5px', color: '#38bdf8' }}>

@@ -271,6 +271,7 @@ export const GoFood2Page: React.FC = () => {
         }}
       >
         <div 
+          className="demo-glow-green"
           onClick={() => goToScreen('gofood_3')}
           style={{ 
             flex: 1, 

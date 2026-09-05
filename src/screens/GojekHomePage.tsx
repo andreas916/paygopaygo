@@ -320,7 +320,7 @@ export const GojekHomePage: React.FC = () => {
               title="Buka Layanan GoRide"
             >
               <div style={{ position: 'relative' }}>
-                <div style={{ width: '50px', height: '50px', borderRadius: '18px', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="demo-glow-green" style={{ width: '50px', height: '50px', borderRadius: '18px', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Bike size={26} color="#00aa13" />
                 </div>
                 <span style={{ position: 'absolute', top: '-6px', left: '50%', transform: 'translateX(-50%)', background: '#1e293b', color: '#fff', fontSize: '8px', fontWeight: 800, padding: '1px 5px', borderRadius: '4px', whiteSpace: 'nowrap' }}>
@@ -350,7 +350,7 @@ export const GojekHomePage: React.FC = () => {
               title="Buka Layanan GoFood"
             >
               <div style={{ position: 'relative' }}>
-                <div style={{ width: '50px', height: '50px', borderRadius: '18px', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="demo-glow-coral" style={{ width: '50px', height: '50px', borderRadius: '18px', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Utensils size={26} color="#ff4d4f" />
                 </div>
                 <span style={{ position: 'absolute', top: '-6px', left: '50%', transform: 'translateX(-50%)', background: '#1e293b', color: '#fff', fontSize: '8px', fontWeight: 800, padding: '1px 5px', borderRadius: '4px', whiteSpace: 'nowrap' }}>

@@ -255,6 +255,7 @@ export const GoRide2Page: React.FC = () => {
 
         {/* Big Green Confirm Button */}
         <button 
+          className="demo-glow-green"
           onClick={() => goToScreen('goride_3')}
           style={{ 
             width: '100%', 
