@@ -411,7 +411,7 @@ export const MobileFrame: React.FC = () => {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
                   <button 
                     onClick={() => { goToScreen('home'); setIsFabMenuOpen(false); }}
-                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'home' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'home' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
+                    style={{ padding: '9px 2px', borderRadius: '12px', background: state.activeScreen === 'home' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'home' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '10.5px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
                   >
                     <Home size={15} />
                     <span>GoPay</span>
@@ -419,23 +419,23 @@ export const MobileFrame: React.FC = () => {
 
                   <button 
                     onClick={() => { setReportTab('expense'); goToScreen('report'); setIsFabMenuOpen(false); }}
-                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
+                    style={{ padding: '9px 2px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#00aed6' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'expense' ? '#000' : '#fff', border: 'none', fontWeight: 700, fontSize: '10.5px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
                   >
                     <ArrowUp size={15} />
-                    <span>Keluar</span>
+                    <span>Pengeluaran</span>
                   </button>
 
                   <button 
                     onClick={() => { setReportTab('income'); goToScreen('report'); setIsFabMenuOpen(false); }}
-                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
+                    style={{ padding: '9px 2px', borderRadius: '12px', background: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'report' && state.activeReportTab === 'income' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '10.5px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
                   >
                     <PieChart size={15} />
-                    <span>Masuk</span>
+                    <span>Pemasukan</span>
                   </button>
 
                   <button 
                     onClick={() => { goToScreen('gojek'); setIsFabMenuOpen(false); }}
-                    style={{ padding: '9px 4px', borderRadius: '12px', background: state.activeScreen === 'gojek' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'gojek' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '11px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
+                    style={{ padding: '9px 2px', borderRadius: '12px', background: state.activeScreen === 'gojek' ? '#00aa13' : '#1f2631', color: state.activeScreen === 'gojek' ? '#fff' : '#4ade80', border: 'none', fontWeight: 700, fontSize: '10.5px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px' }}
                   >
                     <Bike size={15} />
                     <span>Gojek</span>
