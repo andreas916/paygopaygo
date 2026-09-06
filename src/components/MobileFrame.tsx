@@ -379,7 +379,7 @@ export const MobileFrame: React.FC = () => {
       <div className="mobile-only-fab-container">
         <button 
           onClick={() => setIsFabMenuOpen(true)}
-          className="mobile-fab-trigger"
+          className="mobile-fab-trigger demo-glow-cyan"
           title="Buka Menu Simulasi & Evaluator"
         >
           <Zap size={18} color="#00aed6" />

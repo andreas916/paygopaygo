@@ -281,7 +281,7 @@ export const GojekHomePage: React.FC = () => {
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', position: 'relative' }}
               title="Kembali ke Aplikasi GoPay"
             >
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#00aed6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="demo-glow-cyan" style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#00aed6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <MoreHorizontal size={18} color="#ffffff" />
               </div>
               {/* Red Badge 8 */}
